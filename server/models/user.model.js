@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema({
         default: false
     },
     orders: {
-        type: [mongoose.Schema.ObjectId],
+        type: [mongoose.Schema.Types.ObjectId],
         ref: "Order"
     }
 }, { timings: true });

@@ -7,6 +7,10 @@ const routes = [
     {
         path: '/user',
         route: userRoute
+    },
+    {
+        path: '/order',
+        route: orderRoute
     }
 ]
 
