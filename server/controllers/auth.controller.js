@@ -38,7 +38,7 @@ exports.googleLogin = async (req, res, next) => {
                     httpOnly: true,
                 })
                 .status(201)
-                .json({ result: savedUser, token})
+                .json({ result: savedUser})
         }
     } catch (error) {
         next(error)
