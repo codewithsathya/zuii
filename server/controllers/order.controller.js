@@ -5,7 +5,15 @@ const User = require("../models/user.model")
 exports.book = async (req, res, next) => {
     try {
         const userId = req.userId;
-        const addressId = req.body.addressId;
+        const { pickupAddressId, deliveryAddressId }= req.body
+        let pickupAddress, deliveryAddress;
+        if(pickupAddressId){
+            pickupAddress = await Address.findOne({ _id: pickupAddressId })
+        }else{
+            let { pickupLatitude, pickupLongitude } = req.body;
+            
+        }
+
         let address;
         if(addressId){
             address = await Address.findOne({ _id: addressId })
@@ -18,7 +26,10 @@ exports.book = async (req, res, next) => {
             address = new Address({latitude, longitude})
             let newAddress = await address.save();
         }
-
+        let newOrder = new Order({
+            createdBy: userId,
+            pickUpPoint
+        });
     } catch (error) {
         
     }

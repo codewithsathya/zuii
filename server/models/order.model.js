@@ -9,7 +9,8 @@ const orderSchema = mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        required: true
+        required: true,
+        default: Date.now()
     },
     pickUpPoint: {
         type: mongoose.Schema.Types.ObjectId,
