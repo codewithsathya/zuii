@@ -2,8 +2,16 @@ import React from "react";
 import NavBar from "../components/NavBar";
 import Table from "../components/table";
 import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
+import { useDispatch } from "react-redux";
+import { test } from "../actions/user";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(test());
+  };
+
   return (
     <>
       <NavBar />
@@ -11,7 +19,7 @@ const Home = () => {
       <br />
       <br />
       <div className="text-center">
-        <MDBBtn>Book</MDBBtn>
+        <MDBBtn onClick={handleClick}>Book</MDBBtn>
       </div>
       <br />
       <br />

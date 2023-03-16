@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
 import Modal from "@mui/material/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth";
 import Box from "@mui/material/Box";
 import GoogleAuth from "./GoogleAuth";
@@ -20,6 +20,7 @@ const style = {
 
 export default function AuthModal() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -28,10 +29,21 @@ export default function AuthModal() {
   };
   const handleClose = useCallback(() => setOpen(false), []);
 
+  useEffect(() => {
+    if (user) {
+      handleClose();
+      // console.log("hi");
+    }
+  }, [user, handleClose]);
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+  };
+
   return (
     <>
-      <MDBBtn rounded onClick={handleOpen}>
-        Login
+      <MDBBtn rounded onClick={user ? handleLogout : handleOpen}>
+        {user ? "Logout" : "Login"}
       </MDBBtn>
       <Modal
         open={open}

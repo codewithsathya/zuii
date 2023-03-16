@@ -5,6 +5,7 @@ export const googleSignIn = (formData) => async (dispatch) => {
   try {
     const { data } = await api.googleSignIn(formData);
     console.log(data);
+    dispatch(authActions.authenticate({ data: data.result }));
   } catch (err) {
     console.log(err);
   }
