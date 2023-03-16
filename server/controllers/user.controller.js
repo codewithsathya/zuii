@@ -6,6 +6,8 @@ exports.listOrders = async (req, res, next) => {
   try {
     let currUser = await User.findById(req.userId).populate("orders");
 
+    console.log(currUser);
+
     currUser = await Address.populate(currUser, {
       path: "orders.pickUpPoint orders.deliveryPoint",
       select: "_id latitude longitude",
