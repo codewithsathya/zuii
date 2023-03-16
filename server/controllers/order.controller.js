@@ -6,7 +6,6 @@ const Order = require("../models/order.model")
 
 exports.book = async (req, res, next) => {
     try {
-        // req.userId = "64132aa02f353c71658cdb11";
         const userId = req.userId;
         const { pickupAddressId, deliveryAddressId }= req.body
         let pickupAddress, deliveryAddress;
