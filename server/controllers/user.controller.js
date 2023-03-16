@@ -33,10 +33,11 @@ exports.requests = async (req, res, next) => {
       return next(createError(403, "You are unauthorized"));
     }
 
-    const orders = await Order.find().populate(
-      "createdBy",
-      "_id name profilePic email"
-    );
+    const orders = await Order.find().populate({
+      path: "createdBy",
+      options: { autopopulate: false },
+      select: "-orders",
+    });
 
     res.status(200).json(orders);
   } catch (err) {
