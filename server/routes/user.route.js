@@ -9,4 +9,8 @@ router.post("/googleLogin", authController.googleLogin);
 
 router.get("/listOrders", auth, userController.listOrders);
 
+router.get("/requests", auth, userController.requests);
+
+router.post("/test", auth, userController.test);
+
 module.exports = router;
