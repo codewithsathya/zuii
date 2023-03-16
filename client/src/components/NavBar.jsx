@@ -42,7 +42,7 @@ export default function NavBar() {
           </MDBNavbarNav>
 
           <Avatar
-            sx={{ bgcolor: "lightblue" }}
+            sx={{ bgcolor: "lightblue", mr: "20px" }}
             alt="Remy Sharp"
             src={user?.profilePic}
           >

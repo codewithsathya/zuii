@@ -7,6 +7,6 @@ const userController = require("../controllers/user.controller");
 
 router.post("/googleLogin", authController.googleLogin);
 
-router.post("/test", auth, userController.testController);
+router.post("/test", auth, userController.listOrders);
 
 module.exports = router;
