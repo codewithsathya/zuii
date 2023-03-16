@@ -27,10 +27,10 @@ app.use("*", cors());
 // Routes
 app.use("/api", routes);
 
-// const dirname = path.resolve("..")
-// app.use(express.static(path.join(dirname, "/client/build")))
-// app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(dirname, "client", "build", "index.html"))
-// })
+const dirname = path.resolve("..")
+app.use(express.static(path.join(dirname, "/client/build")))
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(dirname, "client", "build", "index.html"))
+})
 
 module.exports = app;
