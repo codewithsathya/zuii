@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
+import Map from '../components/Map';
 
 const Test = () => {
-  return <div>Test</div>;
+  return <Map />;
 };
 
 export default Test;
