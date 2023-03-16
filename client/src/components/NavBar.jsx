@@ -32,14 +32,6 @@ export default function NavBar() {
           <MDBIcon icon="bars" fas />
         </MDBNavbarToggler>
 
-        <Avatar
-          sx={{ bgcolor: "lightblue" }}
-          alt="Remy Sharp"
-          src={user?.profilePic}
-        >
-          {user?.name.charAt(0)}
-        </Avatar>
-
         <MDBCollapse navbar show={showBasic}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
             <MDBNavbarItem>
@@ -48,6 +40,14 @@ export default function NavBar() {
               </MDBNavbarLink>
             </MDBNavbarItem>
           </MDBNavbarNav>
+
+          <Avatar
+            sx={{ bgcolor: "lightblue" }}
+            alt="Remy Sharp"
+            src={user?.profilePic}
+          >
+            {user?.name.charAt(0)}
+          </Avatar>
 
           <AuthModal />
         </MDBCollapse>
