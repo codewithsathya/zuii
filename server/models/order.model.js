@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
-const validator = require('validator')
 
 const orderSchema = mongoose.Schema({
     createdBy: {
@@ -38,7 +37,7 @@ const orderSchema = mongoose.Schema({
     }
 })
 
-orderSchema.plugin(mongooseAutoPopulate)
+orderSchema.plugin(autopopulate);
 
 const Order = mongoose.model("Order", orderSchema);
 module.exports = Order;

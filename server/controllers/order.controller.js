@@ -2,12 +2,15 @@ const auth = require("../middlewares/auth");
 const Address = require("../models/address.model");
 const Drone = require("../models/drone.model");
 const User = require("../models/user.model")
+const Order = require("../models/order.model")
 
 exports.book = async (req, res, next) => {
     try {
+        // req.userId = "64132aa02f353c71658cdb11";
         const userId = req.userId;
         const { pickupAddressId, deliveryAddressId }= req.body
         let pickupAddress, deliveryAddress;
+        console.log(req.body)
 
         if(pickupAddressId){
             pickupAddress = await Address.findOne({ _id: pickupAddressId })
@@ -16,7 +19,7 @@ exports.book = async (req, res, next) => {
             if(!pickupLatitude || !pickupLongitude){
                 throw new Error("Latitude/longitude missing");
             }
-            pickupAddress = new Address({pickupLatitude, pickupLongitude});
+            pickupAddress = new Address({latitude: pickupLatitude, longitude: pickupLongitude});
             pickupAddress = await pickupAddress.save();
         }
 
@@ -27,7 +30,7 @@ exports.book = async (req, res, next) => {
             if(!deliveryLatitude || !deliveryLongitude){
                 throw new Error("Latitude/longitude missing");
             }
-            deliveryAddress = new Address({deliveryLatitude, deliveryLongitude});
+            deliveryAddress = new Address({latitude: deliveryLatitude, longitude: deliveryLongitude});
             deliveryAddress = await deliveryAddress.save();
         }
 
@@ -42,7 +45,7 @@ exports.book = async (req, res, next) => {
             deliveryPoint: deliveryAddress._id,
             assignedDrone: availableDrone._id
         });
-        newOrder = await Order.save();
+        newOrder = await newOrder.save();
 
         newOrder = await Order.findById(newOrder._id);
         res.status(200).json(newOrder);
