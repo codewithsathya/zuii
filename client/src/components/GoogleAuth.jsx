@@ -12,11 +12,13 @@ const GoogleAuth = () => {
     console.log(res);
     const token = res?.credential;
     const result = await jwt_decode(token);
+    console.log(result);
 
     try {
       const formData = {
         name: result.name,
         email: result.email,
+        profilePic: result.picture,
       };
       dispatch(googleSignIn(formData));
     } catch (err) {

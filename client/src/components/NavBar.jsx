@@ -11,9 +11,12 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 import AuthModal from "./AuthModal";
+import Avatar from "@mui/material/Avatar";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const [showBasic, setShowBasic] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <MDBNavbar expand="lg" light bgColor="light">
@@ -28,6 +31,14 @@ export default function NavBar() {
         >
           <MDBIcon icon="bars" fas />
         </MDBNavbarToggler>
+
+        <Avatar
+          sx={{ bgcolor: "lightblue" }}
+          alt="Remy Sharp"
+          src={user?.profilePic}
+        >
+          {user?.name.charAt(0)}
+        </Avatar>
 
         <MDBCollapse navbar show={showBasic}>
           <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">

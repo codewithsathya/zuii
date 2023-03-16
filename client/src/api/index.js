@@ -17,4 +17,4 @@ API.interceptors.request.use((req) => {
 });
 
 export const googleSignIn = (formData) =>
-  API.post("/api/googleLogin", formData);
+  API.post("/api/user/googleLogin", formData);
