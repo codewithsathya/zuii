@@ -15,6 +15,8 @@ exports.listOrders = async (req, res, next) => {
       path: "orders.assignedDrone",
       select: "_id isAvailable currentLocation",
     });
+
+    res.status(200).json({ orders: currUser.orders });
   } catch (err) {
     res.status(400).json({
       message: err.message,
