@@ -1,6 +1,6 @@
-const express = require("express");
-const userRoute = require("./user.route");
-const orderRoute = require("./order.route");
+const express = require("express")
+const userRoute = require("./user.route")
+const orderRoute = require("./order.route")
 
 const router = express.Router();
 

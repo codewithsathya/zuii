@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
+const autopopulate = require("mongoose-autopopulate")
 
 const userSchema = mongoose.Schema({
     name: {
@@ -28,9 +29,12 @@ const userSchema = mongoose.Schema({
     },
     orders: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: "Order"
+        ref: "Order",
+        autopopulate: true
     }
 }, { timings: true });
+
+userSchema.plugin(autopopulate);
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
