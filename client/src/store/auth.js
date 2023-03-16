@@ -14,7 +14,6 @@ const authSlice = createSlice({
         "profile",
         JSON.stringify({
           ...action.payload?.data,
-          token: action.payload?.token,
         })
       );
       state.user = action.payload?.data;
@@ -22,6 +21,7 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       localStorage.clear();
+      document.cookie = "access_token=null";
       state.user = null;
       state.error = null;
     },
