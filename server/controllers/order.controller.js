@@ -17,10 +17,8 @@ exports.book = async (req, res, next) => {
             }
             address = new Address({latitude, longitude})
             let newAddress = await address.save();
-
-            
-
         }
+
     } catch (error) {
         
     }

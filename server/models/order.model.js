@@ -21,6 +21,11 @@ const orderSchema = mongoose.Schema({
         ref: "Address",
         required: true
     },
+    assignedDrone: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Drone",
+        required: true
+    },
     status: {
         type: String,
         default: "pending"
