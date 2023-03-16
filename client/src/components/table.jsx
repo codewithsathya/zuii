@@ -4,11 +4,6 @@ import {MDBContainer, MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody, MD
 export default function Table() {
   return (
     <MDBContainer breakpoint="sm">
-
-
-
-
-
     <MDBTable align='middle'>
       <MDBTableHead>
         <tr>
