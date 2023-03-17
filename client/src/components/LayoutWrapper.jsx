@@ -10,7 +10,7 @@ const LayoutWrapper = ({children}) => {
         <div className="flex h-screen w-full flex-col justify-between font-sans">
             <header className="flex w-full items-center justify-between">
                 <div className="mx-[5px] md:mx-3">
-                    <a href="https://zuii.codewithsathya.com" aria-label="">
+                    <a href="/" aria-label="">
                         <Logo className="max-w-[200px] overflow-y-hidden" />
                     </a>
                 </div>

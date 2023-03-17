@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import Leaflet from "leaflet";
 import MapStyles from "../components/Map.module.css";
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
+import LayoutWrapper from "../components/LayoutWrapper";
 
 const droneIcon = Leaflet.icon({
   iconUrl:
@@ -40,18 +41,20 @@ export default function MasterMap() {
   }, []);
 
   return (
-    <MapContainer className={MapStyles.map} center={center} zoom={15}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {droneLocations.map((droneLocation, idx) => {
-        console.log(droneLocation);
-        if(droneLocation){
+    <LayoutWrapper>
+      <MapContainer className={MapStyles.map} center={center} zoom={15}>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {droneLocations.map((droneLocation, idx) => {
+          console.log(droneLocation);
+          if(droneLocation){
 
-        }
-        return <Marker key={idx} position={droneLocation} icon={droneIcon} />
-      })}
-    </MapContainer>
+          }
+          return <Marker key={idx} position={droneLocation} icon={droneIcon} />
+        })}
+      </MapContainer>
+    </LayoutWrapper>
   );
 }
