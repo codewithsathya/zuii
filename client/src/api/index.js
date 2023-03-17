@@ -20,3 +20,6 @@ export const getOrderList = () => API.get("/api/user/listOrders");
 export const getRequests = () => API.get("/api/user/requests");
 
 export const bookOrder = (orderCord) => API.post("/api/order/book", orderCord);
+
+export const acceptOrder = (orderId) =>
+  API.post("/api/order/acceptOrder", { orderId });

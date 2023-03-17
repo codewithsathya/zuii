@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBBadge, MDBBtn } from "mdb-react-ui-kit";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const TableRows = ({ order }) => {
   let color = "warning";
@@ -9,6 +10,12 @@ const TableRows = ({ order }) => {
   } else if (order.status === "rejected") {
     color = "danger";
   }
+
+  const navigate = useNavigate();
+
+  const handleClickTrack = () => {
+    navigate(`/test/${order._id}`);
+  };
 
   return (
     <tr>
@@ -29,7 +36,7 @@ const TableRows = ({ order }) => {
         </MDBBadge>
       </td>
       <td>
-        <MDBBtn color="success" href="/">
+        <MDBBtn color="success" onClick={handleClickTrack}>
           Track
         </MDBBtn>
       </td>

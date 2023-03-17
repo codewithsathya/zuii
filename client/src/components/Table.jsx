@@ -35,7 +35,13 @@ export default function Table() {
       {!isLoading && orderList.length === 0 && (
         <Typography>No Booking History</Typography>
       )}
-      {isLoading && <Skeleton animation="wave" />}
+      {isLoading && (
+        <>
+          <Skeleton />
+          <Skeleton animation="wave" />
+          <Skeleton animation={false} />
+        </>
+      )}
     </>
   );
 }

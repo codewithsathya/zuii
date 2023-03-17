@@ -1,11 +1,5 @@
 import { React, useState } from "react";
-import {
-  MDBContainer,
-  MDBBtn,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
-} from "mdb-react-ui-kit";
+import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import {
   MDBTabs,
   MDBTabsItem,
@@ -13,7 +7,7 @@ import {
   MDBTabsContent,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AdminTableRow from "./AdminTableRow";
 import Skeleton from "@mui/material/Skeleton";
 import { Typography } from "@material-ui/core";
@@ -31,30 +25,40 @@ export default function AdminTable() {
 
   return (
     <>
-      <MDBTabs className="mb-3">
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("tab1")}
-            active={basicActive === "tab1"}
-          >
-            Pending
-          </MDBTabsLink>
-        </MDBTabsItem>
-        <MDBTabsItem>
-          <MDBTabsLink
-            onClick={() => handleBasicClick("tab2")}
-            active={basicActive === "tab2"}
-          >
-            Accepted
-          </MDBTabsLink>
-        </MDBTabsItem>
-      </MDBTabs>
+      {isLoading && (
+        <>
+          <Skeleton />
+          <Skeleton animation="wave" />
+          <Skeleton animation={false} />
+        </>
+      )}
+      {!isLoading && (
+        <MDBTabs className="mb-3">
+          <MDBTabsItem>
+            <MDBTabsLink
+              onClick={() => handleBasicClick("tab1")}
+              active={basicActive === "tab1"}
+            >
+              Pending
+            </MDBTabsLink>
+          </MDBTabsItem>
+          <MDBTabsItem>
+            <MDBTabsLink
+              onClick={() => handleBasicClick("tab2")}
+              active={basicActive === "tab2"}
+            >
+              Accepted
+            </MDBTabsLink>
+          </MDBTabsItem>
+        </MDBTabs>
+      )}
 
-      {orderList.length === 0 && <Typography>No Orders</Typography>}
+      {!isLoading && orderList.length === 0 && (
+        <Typography>No Orders</Typography>
+      )}
 
       {orderList.length > 0 && (
         <MDBTabsContent>
-          {isLoading && <Skeleton animation="wave" />}
           {!isLoading && (
             <>
               <MDBTabsPane show={basicActive === "tab1"}>

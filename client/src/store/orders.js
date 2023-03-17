@@ -17,6 +17,15 @@ const orderSlice = createSlice({
     addOrder: (state, action) => {
       state.orderList.push(action.payload?.data);
     },
+    accept: (state, action) => {
+      state.orderList = state.orderList.map((order) => {
+        if (order._id === action.payload?.data._id) {
+          return action.payload?.data;
+        } else {
+          return order;
+        }
+      });
+    },
     startLoading: (state) => {
       state.isLoading = true;
     },

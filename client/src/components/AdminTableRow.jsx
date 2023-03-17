@@ -1,8 +1,17 @@
 import React from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
 import Avatar from "@mui/material/Avatar";
+import { useDispatch } from "react-redux";
+import { acceptOrder } from "../actions/orders";
 
 const AdminTableRow = ({ order }) => {
+  const dispatch = useDispatch();
+
+  const handleAcceptOrder = () => {
+    console.log("clicked acc");
+    dispatch(acceptOrder(order._id));
+  };
+
   return (
     <tr>
       <td>
@@ -29,7 +38,7 @@ const AdminTableRow = ({ order }) => {
       {order?.status !== "accepted" && (
         <>
           <td>
-            <MDBBtn color="success" href="/">
+            <MDBBtn color="success" onClick={handleAcceptOrder}>
               Accept
             </MDBBtn>
           </td>

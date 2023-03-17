@@ -36,3 +36,14 @@ export const bookOrder = (orderCords, navigate) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const acceptOrder = (orderId) => async (dispatch) => {
+  console.log(orderId);
+  try {
+    const { data } = await api.acceptOrder(orderId);
+    console.log(data);
+    dispatch(orderActions.accept({ data: data.updatedOrder }));
+  } catch (err) {
+    console.log(err);
+  }
+};

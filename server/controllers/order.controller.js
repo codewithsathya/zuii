@@ -71,8 +71,10 @@ exports.acceptOrder = async (req, res, next) => {
     if (!user.isAdmin) {
       throw new Error("not-admin");
     }
+
     const { orderId } = req.body;
-    let order = Order.findById(orderId);
+    let order = await Order.findById(orderId);
+
     if (!order) {
       throw new Error("order-not-found");
     }
@@ -82,18 +84,28 @@ exports.acceptOrder = async (req, res, next) => {
     if (order.status === "accepted") {
       throw new Error("order-already-accepted");
     }
+
     let availableDrone = await Drone.findOneAndUpdate(
       { isAvailable: true },
       { isAvailable: false }
     );
+
     if (!availableDrone) {
       throw new Error("no-available-drones");
     }
+
     let updatedOrder = await Order.findByIdAndUpdate(
       orderId,
       { status: "accepted", assignedDrone: availableDrone._id },
       { new: true }
     );
+
+    updatedOrder = await User.populate(updatedOrder, {
+      path: "createdBy",
+      options: { autopopulate: false },
+      select: "-orders",
+    });
+
     // starts dummy drone
     startDrone(
       availableDrone._id,
@@ -101,17 +113,13 @@ exports.acceptOrder = async (req, res, next) => {
       order.pickUpPoint,
       order.deliveryPoint
     );
-    res.status(200).json({ status: "order-accepted", ...updatedOrder });
-    next();
+    res.status(200).json({ status: "order-accepted", updatedOrder });
   } catch (error) {
     switch (error.message) {
       case "not-admin":
         res.status(401).json({ error: error.message });
         break;
-      case "order-not-found" ||
-        "order-already-rejected" ||
-        "order-already-accepted" ||
-        "no-available-drones":
+      default:
         res.status(404).json({ error: error.message });
         break;
     }
