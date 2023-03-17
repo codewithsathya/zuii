@@ -60,12 +60,12 @@ const postMongoConnection = () => {
     })
 
     io.on("connection", (socket) => {
-        let droneId;
+        let droneId, userToken;
         console.log("Connected to socket")
         socket.on("setup", (order) => {
             try {
                 droneId = order.droneId;
-                startDrone(droneId, order.baseStationLocation, order.pickupLocation, order.deliveryLocation);
+                userToken = order.userToken;
                 socket.join(order.userId);
                 socket.emit("connected");
             } catch (error) {

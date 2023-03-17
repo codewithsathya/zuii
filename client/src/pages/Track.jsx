@@ -10,26 +10,21 @@ const Track = () => {
   // const orderId = queryParams.get("orderId");
   console.log(orderId);
 
-  const currOrder = useSelector((state) =>
-    state.order.orderList.filter((order) => order._id === orderId)
-  );
+  const currOrder = useSelector((state) => state.order.orderList.filter((order) => order._id === orderId));
 
   const token = JSON.parse(localStorage.getItem("profile")).token;
 
   console.log(currOrder, " track", token);
 
-  // const [location, setLocation] = useState(null);
   const baseStationLocation = { lat: 20.1486222, lng: 85.6697336 };
   const [droneLocation, setDroneLocation] = useState(baseStationLocation);
 
-  // const { orderId } = useParams();
-
   const order = {
-    droneId: "drone1",
-    userId: "uaskj",
+    droneId: currOrder.assignedDrone._id,
     baseStationLocation,
-    pickupLocation: { lat: 20.174163375068684, lng: 85.63380051465722 },
-    deliveryLocation: { lat: 20.16311799434222, lng: 85.6210358461999 },
+    pickupLocation: currOrder.pickupPoint,
+    deliveryLocation: currOrder.deliveryPoint,
+    userToken: token
   };
 
   useEffect(() => {
@@ -43,7 +38,7 @@ const Track = () => {
     });
     socket.on("locationupdate", (...args) => {
       if (args === null) {
-        args = [baseStationLocation];
+        args = [droneLocation];
       }
       setDroneLocation(args[0]);
     });
