@@ -107,11 +107,13 @@ exports.acceptOrder = async (req, res, next) => {
     });
 
     // starts dummy drone
+    let pickupLocation = {lat: order.pickUpPoint.latitude, lng: order.pickUpPoint.longitude};
+    let deliveryLocation = {lat: order.deliveryPoint.latitude, lng: order.deliveryPoint.longitude};
     startDrone(
       availableDrone._id,
       baseStationLocation,
-      order.pickUpPoint,
-      order.deliveryPoint
+      pickupLocation,
+      deliveryLocation
     );
     res.status(200).json({ status: "order-accepted", updatedOrder });
   } catch (error) {

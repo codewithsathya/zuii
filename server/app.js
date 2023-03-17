@@ -65,22 +65,26 @@ const postMongoConnection = () => {
         socket.on("setup", (order) => {
             try {
                 droneId = order.droneId;
+
                 userToken = order.userToken;
                 socket.join(order.userId);
                 socket.emit("connected");
             } catch (error) {
                 socket.emit("failed");
-
             }
         })
 
-        setInterval(() => {
-            if(!droneId){
-                return;
-            }
-            let droneLocation = getLocation(droneId);
-            socket.emit("locationupdate", droneLocation);
-        }, 200)
+        socket.on("getlocation", () => {
+            setInterval(() => {
+                if(!droneId){
+                    return;
+                }
+                console.log(droneId);
+                let droneLocation = getLocation(droneId);
+                console.log(droneLocation);
+                socket.emit("locationupdate", droneLocation);
+            }, 200)
+        })
 
         socket.off("setup", () => {
             console.log("User disconnected");

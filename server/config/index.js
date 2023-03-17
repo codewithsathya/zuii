@@ -1,3 +1,3 @@
 module.exports = {
-    baseStationLocation: { latitude: 20.149642,longitude: 85.673601}
+    baseStationLocation: { lat: 20.149642, lng: 85.673601}
 }

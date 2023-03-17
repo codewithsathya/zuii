@@ -167,29 +167,29 @@ const Map = ({ baseStationLocation, pickupLocation, deliveryLocation, droneLocat
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={baseStationLocation} icon={baseStationIcon}>
+      {baseStationLocation && <Marker position={baseStationLocation} icon={baseStationIcon}>
         <Tooltip permanent>
           Base Station
         </Tooltip>
-      </Marker>
+      </Marker>}
 
-      <Marker position={pickupLocation} icon={pickupIcon}>
+      {pickupLocation && <Marker position={pickupLocation} icon={pickupIcon}>
         <Tooltip permanent>
           Pickup point
         </Tooltip>
-      </Marker>
+      </Marker>}
 
-      <Marker position={deliveryLocation} icon={deliveryIcon}>
+      {deliveryLocation && <Marker position={deliveryLocation} icon={deliveryIcon}>
         <Tooltip permanent>
           Drop point
         </Tooltip>
-      </Marker>
+      </Marker>}
 
-      <Marker position={droneLocation} icon={droneIcon}>
+      {droneLocation && <Marker position={droneLocation} icon={droneIcon}>
         <Tooltip permanent>
           Drone
         </Tooltip>
-      </Marker>
+      </Marker>}
 
 
     </MapContainer>
