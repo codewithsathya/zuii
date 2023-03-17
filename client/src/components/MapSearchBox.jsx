@@ -11,7 +11,7 @@ import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 
 export default function SearchBox(props) {
-  const { selectPosition, setSelectPosition } = props;
+  const { selectPosition, setSelectPosition, staticLocation } = props;
   const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
@@ -90,7 +90,14 @@ export default function SearchBox(props) {
         </List>
         <br />
         <div className="text-center">
-               <MDBBtn href="/">Next</MDBBtn>
+               <MDBBtn onClick={() => {
+                  if(staticLocation) {
+                    // Place Order
+                  } else {
+                    // Set selected position as static location
+                    // Redirect to same page with static location
+                  }
+               }}>Next</MDBBtn>
              </div>
       </div>
     </div>

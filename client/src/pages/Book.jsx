@@ -5,7 +5,7 @@ import LocationInput from "../components/LocationInput";
 const Book = ({ staticLocation }) => {
   return (
     <>
-      <LocationInput staticLocation={}/>
+      <LocationInput staticLocation={staticLocation} />
     </>
   );
 };

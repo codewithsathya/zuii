@@ -34,6 +34,7 @@ function LocationInput({ staticLocation }) {
         <SearchBox
           selectPosition={selectPosition}
           setSelectPosition={setSelectPosition}
+          staticLocation={staticLocation}
         />
       </Box>
     </Box>
