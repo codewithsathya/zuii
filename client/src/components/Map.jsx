@@ -4,6 +4,7 @@ import React, {
   useRef,
   useMemo,
   useCallback,
+  
 } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -14,6 +15,7 @@ import {
   Marker,
   Popup,
   Polyline,
+  useMapEvents
 } from "react-leaflet";
 
 const icon1 = L.icon({
@@ -27,8 +29,8 @@ const icon2 = L.icon({
 });
 
 const center = {
-  lat: 51.505,
-  lng: -0.09,
+  lat: 20.1490736,
+  lng: 85.6654722,
 };
 
 const limeOptions = { color: "lime" };
@@ -45,12 +47,12 @@ function DraggableMarker() {
   const [draggable1, setDraggable1] = useState(false);
   const [draggable2, setDraggable2] = useState(false);
   const [position1, setPosition1] = useState({
-    lat: 0,
-    lng: 0,
+    lat: 20.147,
+  lng: 85.69,
   });
   const [position2, setPosition2] = useState({
-    lat: 10,
-    lng: 10,
+    lat: 20.145,
+  lng: 85.66,
   });
 
   const markerRef1 = useRef(null);
@@ -99,6 +101,17 @@ function DraggableMarker() {
     const arr2 = [position1.lat, position2.lng];
     setPath([arr1, arr2]);
   };
+  const map = useMapEvents({
+    click() {
+      map.locate()
+    },
+    locationfound(e) {
+      setPosition1(e.latlng)
+      map.flyTo(e.latlng, map.getZoom())
+    },
+  })
+
+  
 
   return (
     <>
@@ -113,8 +126,8 @@ function DraggableMarker() {
         <Popup minWidth={90}>
           <span onClick={toggleDraggable1}>
             {draggable1
-              ? "SOURCE Marker is draggable"
-              : "Click here to make SOURCE marker draggable"}
+              ? "PICKUP Marker is draggable"
+              : "Click here to make PICKUP marker draggable"}
           </span>
         </Popup>
       </Marker>
@@ -129,11 +142,12 @@ function DraggableMarker() {
         <Popup minWidth={90}>
           <span onClick={toggleDraggable2}>
             {draggable2
-              ? "DESTINATION Marker is draggable"
-              : "Click here to make DESTINATION marker draggable"}
+              ? "DROP OFF Marker is draggable"
+              : "Click here to make DROP OFF marker draggable"}
           </span>
         </Popup>
       </Marker>
+      
       {/* <Polyline positions={path} /> */}
       <Polyline pathOptions={limeOptions} positions={path} />
     </>
@@ -142,7 +156,7 @@ function DraggableMarker() {
 
 const Map = () => {
   return (
-    <MapContainer className={MapStyles.map} center={center} zoom={1}>
+    <MapContainer className={MapStyles.map} center={center} zoom={15}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
