@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { getOrderList, getRequests } from "../actions/orders";
 import AdminTable from "../components/AdminTable";
 import LayoutWrapper from "../components/LayoutWrapper";
+import AdImage from "../images/image1.jpg"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,33 +23,35 @@ const Home = () => {
   return (
     <LayoutWrapper>
       <div className="mx-auto h-full w-full max-w-[1300px] items-center justify-center">
-        <div className="flex">
-          <div className="">
-            <h1>Drone delivery</h1>
-            <h2>Experience lightning-fast drone delivery. Order now!</h2>
+        <div className="items-start space-y-2 xl:grid xl:grid-cols-2 xl:gap-x-8 xl:space-y-0 h-auto mx-auto justify-between">
+          <div className="xl:flex xl:flex-col h-full space-x-2 xl:justify-center">
+            <h1 className="p-2">Drone delivery</h1>
+            <h3>Experience lightning-fast drone delivery. Order now!</h3>
           </div>
-          <div>
-            <img src="../images/image1.jpg" alt="" width={}/>
+          <div className="flex flex-col">
+            <img src={AdImage} alt="AdImage" width={500} height={500}/>
           </div>
         </div>
         <br />
         <br />
         <div className="text-center">
-          <MDBBtn>Book</MDBBtn>
+          <MDBBtn>Order now</MDBBtn>
         </div>
         <br />
         <br />
-        <MDBContainer breakpoint="sm">
-          <MDBTypography tag="h2">History</MDBTypography>
-        </MDBContainer>
-        <br />
-        <MDBContainer breakpoint="sm">
-          {!user && (
-            <Typography>You need to login to view your history</Typography>
-          )}
-          {user && !user.isAdmin && <Table />}
-          {user && user.isAdmin && <AdminTable />}
-        </MDBContainer>
+        <div className="">
+          <MDBContainer breakpoint="sm">
+            <MDBTypography tag="h2">History</MDBTypography>
+          </MDBContainer>
+          <br />
+          <MDBContainer breakpoint="sm">
+            {!user && (
+              <Typography>You need to login to view your history</Typography>
+            )}
+            {user && !user.isAdmin && <Table />}
+            {user && user.isAdmin && <AdminTable />}
+          </MDBContainer>
+        </div>
       </div>
     </LayoutWrapper>
   );

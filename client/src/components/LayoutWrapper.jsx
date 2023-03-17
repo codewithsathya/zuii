@@ -28,9 +28,9 @@ const LayoutWrapper = ({children}) => {
                         </div>
                     </div>
                     <div className="sm:hidden">
-                        <div className="p-1 mr-2 font-medium text-gray-900 hover:text-[#008cff]">
-                            Logout
-                            {/* <AuthModal /> */}
+                        <div className="px-0 sm:px-2 mr-0 sm:mr-2 font-medium text-gray-900 hover:text-[#008cff]">
+                            {/* Logout */}
+                            <AuthModal />
                         </div>
                     </div>
                 </div>
