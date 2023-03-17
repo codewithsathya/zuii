@@ -7,6 +7,7 @@ import Book from "./pages/Book";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/auth";
 import Track from "./pages/Track";
+import MasterMap from "./pages/MasterMap";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
         <Route path="requests" element={<Requests />} />
         <Route path="track/:orderId" element={<Track />} />
         <Route path="/book" element={<Book />} />
+        <Route path="/mastermap" element={<MasterMap />} />
       </Routes>
     </BrowserRouter>
   );

@@ -14,6 +14,7 @@ const Track = () => {
   const baseStationLocation = { lat: 20.149642, lng: 85.673601 };
   const [droneLocation, setDroneLocation] = useState(baseStationLocation);
   const order = {
+    id: currOrder?._id,
     droneId: currOrder?.assignedDrone?._id,
     baseStationLocation,
     pickupLocation: {
@@ -46,6 +47,9 @@ const Track = () => {
     socket.on("disconnect", () => {
       socket.disconnect();
     });
+    socket.on("hi", () => {
+      console.log("Hi");
+    })
     return () => {
       socket.disconnect();
     };

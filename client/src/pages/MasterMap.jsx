@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import io from "socket.io-client";
+import Leaflet from "leaflet";
 
 const droneIcon = Leaflet.icon({
   iconUrl:
@@ -10,7 +12,7 @@ export default function MasterMap() {
 
   useEffect(() => {
     const socket = io.connect("http://localhost:3000");
-    socket.emit("setupAdmin", { token });
+    socket.emit("setupAdmin", token);
     socket.on("connected", () => {
       console.log("User successfully connected");
       socket.emit("get-all-locations");

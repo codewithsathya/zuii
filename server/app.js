@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const routes = require("./routes");
 const { getLocation, startDrone } = require("./drone-api");
-const { baseStationLocation } = require("./config");
+const { baseStationLocation, adminMails } = require("./config");
 const Drone = require("./models/drone.model");
 
 // Security
@@ -70,21 +70,34 @@ const postMongoConnection = () => {
     })
 
     io.on("connection", (socket) => {
-        let droneId, userToken, orderDetails, isAdmin;
-        console.log("Connected to socket")
+        let droneId, userToken, orderDetails, isAdmin, userId;
         socket.on("setup", (order) => {
+            console.log("Connected to socket")
             try {
-                droneId = order.droneId;
-                userToken = order.userToken;
                 orderDetails = order;
-
-                const decodedData = jwt.verify(order.userToken, `${process.env.JWT_SECRET_KEY}`);
-                isAdmin = decodedData.isAdmin;
-
-                socket.join(order.userId);
+                droneId = order.droneId;
+                const decodedData = jwt.verify(order.userToken, `${process.env.JWT_SECRET_KEY}`)
+                const email = decodedData.email;
+                isAdmin = adminMails.includes(email);
+                
+                socket.join(order.id);
                 socket.emit("connected");
             } catch (error) {
                 socket.emit("failed");
+            }
+        })
+
+
+        socket.on("setupAdmin", (token) => {
+            try {
+                const decodedData = jwt.verify(token, `${process.env.JWT_SECRET_KEY}`);
+                isAdmin = adminMails.includes(decodedData.email);
+
+                socket.join("admins");
+                socket.emit("connected");
+            } catch (error) {
+                console.log(error);
+                socket.emit("failed")
             }
         })
 
@@ -104,17 +117,20 @@ const postMongoConnection = () => {
 
         socket.on("get-all-locations", async () => {
             let drones = await Drone.find();
+            console.log(drones);
             if(isAdmin){
                 setInterval(() => {
+                    let arr = []
                     for(let drone of drones){
                         let droneLocation;
                         if(drone.isAvailable){
                             droneLocation = baseStationLocation;
                         }else{
-                            droneLocation = getLocation(drone._id);
+                            droneLocation = getLocation(drone._id) || baseStationLocation;
                         }
-                        socket.emit("update-locations", { ...drone, ...droneLocation })
+                        arr.push(droneLocation);
                     }
+                    socket.emit("update-locations", arr)
                 }, 200)
             }else{
                 socket.emit("authorization-error")
