@@ -3,9 +3,11 @@ const express = require("express");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const mongoSanitize = require("express-mongo-sanitize");
+const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 const app = express();
 const routes = require("./routes");
 
@@ -47,13 +49,6 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 
 let server, io;
-mongoose.set('strictQuery', true);
-mongoose.connect(process.env.MONGO_URL)
-    .then(postMongoConnection)
-    .catch(error => {
-        throw error
-    });
-
 const postMongoConnection = () => {
     server = app.listen(port, () => console.log(`Listening to port ${port}`));
     io = require("socket.io")(server, {
@@ -62,4 +57,27 @@ const postMongoConnection = () => {
             origin: process.env.NODE_ENV === 'production' ? "https://zuii.codewithsathya.com": "http://localhost:3000"
         }
     })
+
+    io.on("connection", (socket) => {
+        console.log("Connected to socket")
+        socket.on("setup", (token) => {
+            try {
+                let userId = jwt.verify(token, process.env.JWT_SECRET_KEY);
+                socket.join(userData._id);
+                socket.emit("connected");
+            } catch (error) {
+                socket.emit("failed");
+            }
+        })
+
+        socket.on("getlocation", () => {
+
+        })
+    })
 }
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.MONGO_URL)
+.then(postMongoConnection)
+.catch(error => {
+    throw error
+});
