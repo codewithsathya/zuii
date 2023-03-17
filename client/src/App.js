@@ -2,12 +2,11 @@ import { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import OrderHistory from "./pages/OrderHistory";
 import Requests from "./pages/Requests";
-import Test from "./pages/Test";
 import Book from "./pages/Book";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/auth";
+import Track from "./pages/Track";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,12 +19,12 @@ function App() {
     }
   }, [dispatch]);
 
-  return (  
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="requests" element={<Requests />} />
-        <Route path="/test/:orderId" element={<Test />} />
+        <Route path="track/:orderId" element={<Track />} />
         <Route path="/book" element={<Book />} />
       </Routes>
     </BrowserRouter>

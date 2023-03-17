@@ -14,7 +14,7 @@ const TableRows = ({ order }) => {
   const navigate = useNavigate();
 
   const handleClickTrack = () => {
-    navigate(`/test/${order._id}`);
+    navigate(`/track/${order._id}`);
   };
 
   return (
