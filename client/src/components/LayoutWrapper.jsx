@@ -36,15 +36,6 @@ const LayoutWrapper = ({children}) => {
                 </div>
             </header>
             <hr className="mt-0"></hr>
-            <div className="flex">
-                <div>
-                    <h1>Drone delivery</h1>
-                    <h2>Experience lightning-fast drone delivery. Order now!</h2>
-                </div>
-                <div>
-                    <img src="" alt="" />
-                </div>
-            </div>
             <main className="mb-auto">
                 {children}
             </main>

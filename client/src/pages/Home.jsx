@@ -22,6 +22,15 @@ const Home = () => {
   return (
     <LayoutWrapper>
       <div className="mx-auto h-full w-full max-w-[1300px] items-center justify-center">
+        <div className="flex">
+          <div className="">
+            <h1>Drone delivery</h1>
+            <h2>Experience lightning-fast drone delivery. Order now!</h2>
+          </div>
+          <div>
+            <img src="../images/image1.jpg" alt="" width={}/>
+          </div>
+        </div>
         <br />
         <br />
         <div className="text-center">
