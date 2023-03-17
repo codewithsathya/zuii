@@ -13,7 +13,8 @@ const Home = () => {
   };
 
   return (
-    <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center">
+    <div>
+    {/* <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center"> */}
       <NavBar />
       <br />
       <br />
