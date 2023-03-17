@@ -12,13 +12,13 @@ const orderSchema = mongoose.Schema({
         required: true,
         default: Date.now()
     },
-    pickUpPoint: {
+    pickupLocation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         required: true,
         autopopulate: true
     },
-    deliveryPoint: {
+    deliveryLocation: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         required: true,

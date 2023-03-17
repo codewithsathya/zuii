@@ -24,7 +24,7 @@ function haversineDistance (a, b) {
     return 2 * R * asin(sqrt(ht))
 }
 
-let speedOfDrone = 20; // meters/sec
+let speedOfDrone = 80; // meters/sec
 let startRestTime = 10 // sec
 let pickupRestTime = 10 // sec
 let deliveryRestTime = 10 // sec
