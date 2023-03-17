@@ -27,7 +27,6 @@ const Home = () => {
         <MDBTypography tag="h2">History</MDBTypography>
       </MDBContainer>
       <br />
-
       <Table />
     </>
   );

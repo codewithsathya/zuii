@@ -32,7 +32,6 @@ export default function AuthModal() {
   useEffect(() => {
     if (user) {
       handleClose();
-      // console.log("hi");
     }
   }, [user, handleClose]);
 
@@ -42,9 +41,17 @@ export default function AuthModal() {
 
   return (
     <>
-      <MDBBtn rounded onClick={user ? handleLogout : handleOpen}>
-        {user ? "Logout" : "Login"}
-      </MDBBtn>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <MDBBtn rounded onClick={user ? handleLogout : handleOpen}>
+          {user ? "Logout" : "Login"}
+        </MDBBtn>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
