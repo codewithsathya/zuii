@@ -175,7 +175,13 @@ function startDrone(
     drones[droneId].deliveryDepartureTime +
     (deliveryToBaseDistance / speedOfDrone) * 1000;
 
-    // console.log(haversineDistance(pickupLocation, deliveryLocation));
+  console.log(haversineDistance(pickupLocation, deliveryLocation));
+  return (
+    totalDistance / speedOfDrone +
+    startRestTime +
+    pickupRestTime +
+    deliveryRestTime
+  );
 }
 
 module.exports = {

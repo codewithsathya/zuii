@@ -13,6 +13,16 @@ const droneSlice = createSlice({
       state.numberOfFree = action.payload?.data.numberOfFree;
       state.freeDrones = action.payload?.data.drones;
     },
+    addFree: (state, action) => {
+      state.numberOfFree = state.numberOfFree + 1;
+      state.freeDrones.push(action.payload?.data);
+    },
+    removeFromFree: (state, action) => {
+      state.numberOfFree = state.numberOfFree - 1;
+      state.freeDrones = state.freeDrones.filter(
+        (drone) => drone._id !== action.payload?.data
+      );
+    },
   },
 });
 

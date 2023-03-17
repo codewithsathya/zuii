@@ -28,3 +28,6 @@ export const rejectOrder = (orderId) =>
   API.post("/api/order/rejectOrder", { orderId });
 
 export const getFreeDrones = () => API.get("/api/drone/available");
+
+export const freeTheDrone = (orderId) =>
+  API.post("/api/drone/free", { orderId });

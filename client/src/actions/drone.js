@@ -10,3 +10,13 @@ export const getFreeDrones = () => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const freeTheDrone = (orderId) => async (dispatch) => {
+  try {
+    const { data } = await api.freeTheDrone(orderId);
+    console.log(data);
+    dispatch(droneActions.addFree({ data }));
+  } catch (err) {
+    console.log(err);
+  }
+};

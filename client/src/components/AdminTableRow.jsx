@@ -4,12 +4,18 @@ import Avatar from "@mui/material/Avatar";
 import { useDispatch } from "react-redux";
 import { acceptOrder, rejectOrder } from "../actions/orders";
 import { useNavigate } from "react-router-dom";
+import { freeTheDrone } from "../actions/drone";
 
 const AdminTableRow = ({ order }) => {
   const dispatch = useDispatch();
 
-  const handleAcceptOrder = () => {
-    dispatch(acceptOrder(order._id));
+  const handleAcceptOrder = async () => {
+    const timeToFree = await dispatch(acceptOrder(order._id));
+    console.log(timeToFree);
+    setTimeout(() => {
+      console.log("dis ");
+      dispatch(freeTheDrone(order._id));
+    }, [timeToFree * 1000]);
   };
 
   const handleRejectOrder = () => {
@@ -61,11 +67,11 @@ const AdminTableRow = ({ order }) => {
       )}
       {order?.status === "accepted" && (
         <>
-        <td>
-           <MDBBtn color="success" onClick={handleClickTrack}>
-          Track
-        </MDBBtn>
-        </td>
+          <td>
+            <MDBBtn color="success" onClick={handleClickTrack}>
+              Track
+            </MDBBtn>
+          </td>
         </>
       )}
     </tr>

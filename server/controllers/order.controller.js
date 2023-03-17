@@ -106,15 +106,25 @@ exports.acceptOrder = async (req, res, next) => {
       select: "-orders",
     });
 
-    let pickupLocation = {lat: order.pickUpPoint.latitude, lng: order.pickUpPoint.longitude};
-    let deliveryLocation = {lat: order.deliveryPoint.latitude, lng: order.deliveryPoint.longitude};
-    startDrone(
+    let pickupLocation = {
+      lat: order.pickUpPoint.latitude,
+      lng: order.pickUpPoint.longitude,
+    };
+    let deliveryLocation = {
+      lat: order.deliveryPoint.latitude,
+      lng: order.deliveryPoint.longitude,
+    };
+
+    // starts dummy drone
+    const timeToFree = startDrone(
       availableDrone._id,
       baseStationLocation,
       pickupLocation,
       deliveryLocation
     );
-    res.status(200).json({ status: "order-accepted", updatedOrder });
+    res
+      .status(200)
+      .json({ status: "order-accepted", updatedOrder, timeToFree });
   } catch (error) {
     switch (error.message) {
       case "not-admin":

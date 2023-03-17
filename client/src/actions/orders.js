@@ -1,4 +1,5 @@
 import * as api from "../api";
+import { droneActions } from "../store/drone";
 import { orderActions } from "../store/orders";
 
 export const getOrderList = () => async (dispatch) => {
@@ -43,6 +44,11 @@ export const acceptOrder = (orderId) => async (dispatch) => {
     const { data } = await api.acceptOrder(orderId);
     console.log(data);
     dispatch(orderActions.accept({ data: data.updatedOrder }));
+    dispatch(
+      droneActions.removeFromFree({ data: data.updatedOrder.assignedDrone._id })
+    );
+
+    return data.timeToFree;
   } catch (err) {
     console.log(err);
   }
