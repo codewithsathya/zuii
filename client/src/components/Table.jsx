@@ -10,6 +10,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import TableRows from "./TableRows";
 import { getOrderList } from "../actions/orders";
+import Skeleton from "@mui/material/Skeleton";
+import { Typography } from "@mui/material";
 
 export default function Table() {
   const { orderList, isLoading } = useSelector((state) => state.order);
@@ -26,22 +28,29 @@ export default function Table() {
 
   return (
     <MDBContainer breakpoint="sm">
-      <MDBTable align="middle" responsive>
-        <MDBTableHead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Status</th>
-            <th scope="col">Track</th>
-          </tr>
-        </MDBTableHead>
-        <MDBTableBody>
-          {orderList?.map((order) => (
-            <TableRows key={order._id} order={order} />
-          ))}
-        </MDBTableBody>
-      </MDBTable>
+      {!user && <Typography>You need to login to view your history</Typography>}
+      {user && (
+        <MDBTable align="middle" responsive>
+          <MDBTableHead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">From</th>
+              <th scope="col">To</th>
+              <th scope="col">Status</th>
+              <th scope="col">Track</th>
+            </tr>
+          </MDBTableHead>
+
+          {!isLoading && (
+            <MDBTableBody>
+              {orderList?.map((order) => (
+                <TableRows key={order._id} order={order} />
+              ))}
+            </MDBTableBody>
+          )}
+        </MDBTable>
+      )}
+      {isLoading && <Skeleton animation="wave" />}
     </MDBContainer>
   );
 }
