@@ -10,7 +10,6 @@ import { authActions } from "./store/auth";
 
 function App() {
   const dispatch = useDispatch();
-
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("profile"));
     if (userData) {
