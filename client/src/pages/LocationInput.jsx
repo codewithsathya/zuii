@@ -4,7 +4,10 @@ import Maps from "../components/MapInput";
 import Box from "@mui/material/Box";
 
 function LocationInput() {
-  const [selectPosition, setSelectPosition] = useState(null);
+  const [selectPosition, setSelectPosition] = useState({
+    lat: 20.1490736,
+    lng: 85.6654722,
+  });
 
   return (
     <Box
@@ -21,7 +24,10 @@ function LocationInput() {
           height: { xs: "60vh", md: "100vh" },
         }}
       >
-        <Maps selectPosition={selectPosition} />
+        <Maps
+          selectPosition={selectPosition}
+          setSelectPosition={setSelectPosition}
+        />
       </Box>
       <Box sx={{ width: { xs: "100vw", md: "50vw" } }}>
         <SearchBox
