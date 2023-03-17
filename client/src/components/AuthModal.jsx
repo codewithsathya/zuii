@@ -11,11 +11,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { xs: "70%", sm: 400 },
+  width: "70%",
+  height: "70%",
   bgcolor: "background.paper",
   border: "0px solid #000",
   boxShadow: 24,
-  borderRadius: "20px",
+  borderRadius: "2px",
   p: 4,
 };
 
@@ -61,7 +62,10 @@ export default function AuthModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <GoogleAuth />
+          <div className="flex flex-col align-items-center">
+            <h1>Welcome to zuii</h1>
+            <GoogleAuth />
+          </div>
         </Box>
       </Modal>
     </>

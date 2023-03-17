@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const helmet = require("helmet");
 const xss = require("xss-clean");
@@ -43,4 +44,22 @@ app.use((err, req, res, next) => {
 //     res.sendFile(path.resolve(dirname, "client", "build", "index.html"))
 // })
 
-module.exports = app;
+const port = process.env.PORT || 3000;
+
+let server, io;
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.MONGO_URL)
+    .then(postMongoConnection)
+    .catch(error => {
+        throw error
+    });
+
+const postMongoConnection = () => {
+    server = app.listen(port, () => console.log(`Listening to port ${port}`));
+    io = require("socket.io")(server, {
+        pingTimeout: 60000,
+        cors: {
+            origin: process.env.NODE_ENV === 'production' ? "https://zuii.codewithsathya.com": "http://localhost:3000"
+        }
+    })
+}
