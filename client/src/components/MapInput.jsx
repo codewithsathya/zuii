@@ -109,13 +109,6 @@ export default function Maps(props) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=1gz0yfXteTVOtuh7LQIB"
       />
-      {/* {selectPosition && (
-        <Marker position={locationSelection} icon={icon}>
-          <Popup>
-            Pickup Location <br /> Drag me!!
-          </Popup>
-        </Marker>
-      )} */}
       <DraggableMarker
         position={selectPosition}
         setPosition={setSelectPosition}
