@@ -3,6 +3,7 @@ import Table from "../components/Table";
 import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
 import { getOrderList } from "../actions/orders";
+import NavBar from "../components/NavBar";
 
 const Home = () => {
   const dispatch = useDispatch();
