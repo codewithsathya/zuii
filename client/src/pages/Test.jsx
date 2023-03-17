@@ -3,9 +3,9 @@ import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import Map from "../components/Map";
 
-// const Test = () => {
-//   const [location, setLocation] = useState(null);
-//   const { id } = useParams();
+const Test = () => {
+  const [location, setLocation] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     const socket = io.connect("http://localhost:3000");
@@ -31,4 +31,4 @@ import Map from "../components/Map";
   );
 };
 
-// export default Test;
+export default Test;
