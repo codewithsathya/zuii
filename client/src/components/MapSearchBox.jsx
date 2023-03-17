@@ -8,11 +8,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
-const params = {
-  q: "",
-  format: "json",
-  addressdetails: "addressdetails",
-};
 
 export default function SearchBox(props) {
   const { selectPosition, setSelectPosition } = props;

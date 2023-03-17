@@ -7,7 +7,7 @@ import LocationInput from "../components/LocationInput";
 const Test = () => {
   return (
     <>
-      <LocationInput />
+      <LocationInput staticLocation={{ lat: 20.1490736, lng: 85.6654722 }} />
     </>
   );
 };
