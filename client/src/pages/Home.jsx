@@ -30,6 +30,10 @@ const Home = () => {
     navigate("/book");
   };
 
+  const handleViewMasterMap = () => {
+    navigate("/mastermap");
+  }
+
   return (
     <LayoutWrapper>
       <div className="mx-auto h-full w-full max-w-[1300px] items-center justify-center">
@@ -45,10 +49,16 @@ const Home = () => {
 
         {user && (
           <div className="text-center">
-            <MDBBtn onClick={handleBooking}>
+            {/* <MDBBtn onClick={handleBooking}>
               Book a drone {user.isAdmin && "("} {user.isAdmin && numberOfFree}{" "}
               {user.isAdmin && ")"}
-            </MDBBtn>
+            </MDBBtn> */}
+            {!user.isAdmin && <MDBBtn onClick={handleBooking}>
+            Book a drone {user.isAdmin && "("} {user.isAdmin && numberOfFree}{" "}
+              {user.isAdmin && ")"}
+            </MDBBtn>}
+            {user.isAdmin && <MDBBtn onClick={handleViewMasterMap}>View all drones {user.isAdmin && "("} {user.isAdmin && numberOfFree}{" "}
+              {user.isAdmin && ")"}</MDBBtn>}
           </div>
         )}
 

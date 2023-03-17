@@ -29,7 +29,7 @@ export default function MasterMap() {
       console.log("Connection failed");
     });
     socket.on("update-locations", (...args) => {
-      setDroneLocations(args);
+      setDroneLocations(args[0]);
     });
     socket.on("disconnect", () => {
       socket.disconnect();
@@ -45,9 +45,13 @@ export default function MasterMap() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {droneLocations.map((droneLocation, idx) => (
-        <Marker key={idx} position={droneLocation} icon={droneIcon} />
-      ))}
+      {droneLocations.map((droneLocation, idx) => {
+        console.log(droneLocation);
+        if(droneLocation){
+
+        }
+        return <Marker key={idx} position={droneLocation} icon={droneIcon} />
+      })}
     </MapContainer>
   );
 }

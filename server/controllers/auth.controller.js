@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const config = require("../config")
 
 exports.googleLogin = async (req, res, next) => {
     try {
@@ -20,6 +21,7 @@ exports.googleLogin = async (req, res, next) => {
         }else{
             const newUser = new User({
                 ...req.body,
+                // isAdmin: config.adminMails.includes(req.body.email)
             })
             const savedUser = await newUser.save();
             const token = jwt.sign(
