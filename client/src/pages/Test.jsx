@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom";
+import Map from "../components/Map";
 
 const Test = () => {
   const [location, setLocation] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    const socket = io.connect(SERVER_ROUTE);
+    const socket = io.connect("http://localhost:3000");
     socket.emit("setup", { id });
     socket.on("connected", () => {
       console.log("User successfully connected");
@@ -25,10 +26,7 @@ const Test = () => {
 
   return (
     <>
-      <h1>
-        lat: {location.lat}
-        lng: {location.lng}
-      </h1>
+      <Map />
     </>
   );
 };

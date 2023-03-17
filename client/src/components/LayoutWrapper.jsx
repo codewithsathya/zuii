@@ -35,7 +35,7 @@ const LayoutWrapper = ({children}) => {
                     </div>
                 </div>
             </header>
-            <hr className="mt-0"></hr>
+            <hr className="my-0"></hr> 
             <main className="mb-auto">
                 {children}
             </main>

@@ -55,7 +55,7 @@ const postMongoConnection = () => {
     io = require("socket.io")(server, {
         pingTimeout: 60000,
         cors: {
-            origin: process.env.NODE_ENV === 'production' ? "https://zuii.codewithsathya.com": "http://localhost:3000"
+            origin: process.env.NODE_ENV === 'production' ? "https://zuii.codewithsathya.com": "http://localhost:3001"
         }
     })
 
@@ -74,8 +74,8 @@ const postMongoConnection = () => {
         })
 
         setInterval(() => {
-            let droneLocation = getLocation(droneId);
-            socket.emit("locationupdate", droneLocation)
+            // let droneLocation = getLocation("drone1);
+            socket.emit("locationupdate", {lat: 23.4, lng: 35.3});
         }, 200)
 
         socket.off("setup", () => {

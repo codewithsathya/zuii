@@ -27,6 +27,7 @@ function LocationInput({ staticLocation, handleNext }) {
         flexDirection: { xs: "column", md: "row" },
         width: "100vw",
         height: "100vh",
+        
       }}
     >
       <Box

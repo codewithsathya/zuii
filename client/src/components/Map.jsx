@@ -158,7 +158,12 @@ const Map = () => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <DraggableMarker />
+      <Marker position="" icon="">
+          <Popup>
+            <span>Pickup Location</span>
+          </Popup>
+        </Marker>
+
     </MapContainer>
   );
 };
