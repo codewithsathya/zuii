@@ -106,7 +106,6 @@ exports.acceptOrder = async (req, res, next) => {
       select: "-orders",
     });
 
-    // starts dummy drone
     let pickupLocation = {lat: order.pickUpPoint.latitude, lng: order.pickUpPoint.longitude};
     let deliveryLocation = {lat: order.deliveryPoint.latitude, lng: order.deliveryPoint.longitude};
     startDrone(
