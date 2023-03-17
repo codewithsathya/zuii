@@ -10,7 +10,7 @@ const path = require("path");
 const jwt = require("jsonwebtoken");
 const app = express();
 const routes = require("./routes");
-const { getLocation } = require("./drone-api");
+const { getLocation, startDrone } = require("./drone-api");
 
 // Security
 app.use(helmet());
@@ -64,8 +64,9 @@ const postMongoConnection = () => {
         console.log("Connected to socket")
         socket.on("setup", (order) => {
             try {
-                droneId = order.assignedDrone;
-                socket.join(order.assignedBy._id);
+                droneId = order.droneId;
+                startDrone(droneId, order.baseStationLocation, order.pickupLocation, order.deliveryLocation);
+                socket.join(order.userId);
                 socket.emit("connected");
             } catch (error) {
                 socket.emit("failed");
@@ -74,8 +75,11 @@ const postMongoConnection = () => {
         })
 
         setInterval(() => {
-            // let droneLocation = getLocation("drone1);
-            socket.emit("locationupdate", {lat: 23.4, lng: 35.3});
+            if(!droneId){
+                return;
+            }
+            let droneLocation = getLocation(droneId);
+            socket.emit("locationupdate", droneLocation);
         }, 200)
 
         socket.off("setup", () => {

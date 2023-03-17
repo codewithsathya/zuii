@@ -33,12 +33,18 @@ let drones = {};
 
 function getCoordinates(startTime, endTime, currentTime, startLocation, endLocation){
     let ratio = (currentTime - startTime) / (endTime - startTime);
-    let latitude = ratio * (endLocation.latitude - startLocation.latitude) + startLocation.latitude
-    let longitude = ratio * (endLocation.longitude - startLocation.longitude) + startLocation.longitude
-    return {latitude, longitude}
+    let lat = ratio * (endLocation.lat - startLocation.lat) + startLocation.lat
+    let lng = ratio * (endLocation.lng - startLocation.lng) + startLocation.lng
+    return {lat, lng}
 }
 
 function getLocation(droneId){
+    if(!droneId){
+        return null;
+    }
+    if(!drones[droneId]){
+        return null;
+    }
     let { baseStationLocation, pickupLocation, deliveryLocation, startTime, startDepartureTime, pickArrivalTime, pickDepartureTime, deliveryArrivalTime, deliveryDepartureTime, baseReachTime } = drones[droneId];
 
 

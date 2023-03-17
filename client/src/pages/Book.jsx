@@ -15,9 +15,9 @@ const Book = () => {
 
   return (
     <LayoutWrapper>
-      <div>
-        {!staticLocation && "Select pick up location"}
-        {staticLocation && "Select drop off location"}
+      <div className="text-center">
+        {!staticLocation && <h1>Select pick up location</h1>}
+        {staticLocation && <h1>Select drop off location</h1>}
       </div>
       <LocationInput staticLocation={staticLocation} handleNext={handleNext} />
     </LayoutWrapper>
