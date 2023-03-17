@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "../components/NavBar";
 import Table from "../components/Table";
 import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
