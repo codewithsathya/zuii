@@ -2,6 +2,8 @@ import React from "react";
 import Map from "../components/Map";
 import Admintable from "../components/AdminTable";
 import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
+import LocationInput from "./LocationInput";
+
 const Test = () => {
   return (
     <>
@@ -13,6 +15,8 @@ const Test = () => {
       </MDBContainer>
       <br />
       <Admintable />
+      <br />
+      <LocationInput />
     </>
   );
 };
