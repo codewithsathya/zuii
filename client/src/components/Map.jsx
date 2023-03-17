@@ -4,7 +4,6 @@ import React, {
   useRef,
   useMemo,
   useCallback,
-  
 } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -15,7 +14,7 @@ import {
   Marker,
   Popup,
   Polyline,
-  useMapEvents
+  useMapEvents,
 } from "react-leaflet";
 
 const icon1 = L.icon({
@@ -48,11 +47,11 @@ function DraggableMarker() {
   const [draggable2, setDraggable2] = useState(false);
   const [position1, setPosition1] = useState({
     lat: 20.147,
-  lng: 85.69,
+    lng: 85.69,
   });
   const [position2, setPosition2] = useState({
     lat: 20.145,
-  lng: 85.66,
+    lng: 85.66,
   });
 
   const markerRef1 = useRef(null);
@@ -103,15 +102,13 @@ function DraggableMarker() {
   };
   const map = useMapEvents({
     click() {
-      map.locate()
+      map.locate();
     },
     locationfound(e) {
-      setPosition1(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
+      setPosition1(e.latlng);
+      map.flyTo(e.latlng, map.getZoom());
     },
-  })
-
-  
+  });
 
   return (
     <>
@@ -147,8 +144,8 @@ function DraggableMarker() {
           </span>
         </Popup>
       </Marker>
-      
-      {/* <Polyline positions={path} /> */}
+
+      <Polyline positions={path} />
       <Polyline pathOptions={limeOptions} positions={path} />
     </>
   );
