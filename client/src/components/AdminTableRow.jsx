@@ -12,7 +12,7 @@ const AdminTableRow = ({ order }) => {
             alt=""
             src={order?.createdBy.profilePic}
           >
-            {order?.createdBy.name.charAt(0)}
+            {order?.createdBy?.name?.charAt(0)}
           </Avatar>
           <div className="ms-3">
             <p className="fw-bold mb-1">{order?.createdBy.name}</p>

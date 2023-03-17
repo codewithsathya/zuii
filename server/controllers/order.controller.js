@@ -46,6 +46,12 @@ exports.book = async (req, res, next) => {
     });
     newOrder = await newOrder.save();
 
+    await User.findByIdAndUpdate(req.userId, {
+      $push: {
+        orders: newOrder._id,
+      },
+    });
+
     res.status(200).json(newOrder);
     next();
   } catch (error) {
