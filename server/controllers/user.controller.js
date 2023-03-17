@@ -45,10 +45,20 @@ exports.requests = async (req, res, next) => {
       return next(createError(403, "You are unauthorized"));
     }
 
-    const orders = await Order.find().populate({
+    let orders = await Order.find().populate({
       path: "createdBy",
       options: { autopopulate: false },
       select: "-orders",
+    });
+
+    orders = await Address.populate(orders, {
+      path: "pickUpPoint",
+      select: "latitude longitude",
+    });
+
+    orders = await Address.populate(orders, {
+      path: "deliveryPoint",
+      select: "latitude longitude",
     });
 
     res.status(200).json(orders);
