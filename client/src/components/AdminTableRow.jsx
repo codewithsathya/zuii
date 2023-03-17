@@ -35,13 +35,13 @@ const AdminTableRow = ({ order }) => {
           <Avatar
             sx={{ bgcolor: "lightblue", width: "45px", height: "45px" }}
             alt=""
-            src={order?.createdBy.profilePic}
+            src={order?.createdBy?.profilePic}
           >
             {order?.createdBy?.name?.charAt(0)}
           </Avatar>
           <div className="ms-3">
-            <p className="fw-bold mb-1">{order?.createdBy.name}</p>
-            <p className="text-muted mb-0">{order?.createdBy.email}</p>
+            <p className="fw-bold mb-1">{order?.createdBy?.name}</p>
+            <p className="text-muted mb-0">{order?.createdBy?.email}</p>
           </div>
         </div>
       </td>
