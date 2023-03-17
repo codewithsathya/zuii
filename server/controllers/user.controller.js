@@ -9,7 +9,7 @@ exports.listOrders = async (req, res, next) => {
     // console.log(currUser);
 
     // currUser = await Address.populate(currUser, {
-    //   path: "orders.pickUpPoint orders.deliveryPoint",
+    //   path: "orders.pickupLocation orders.deliveryLocation",
     //   select: "_id latitude longitude",
     // });
 

@@ -13,9 +13,9 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div>
+    {/* <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center"> */}
       <NavBar />
-      <div>Home</div>
       <br />
       <br />
       <div className="text-center">
@@ -28,7 +28,7 @@ const Home = () => {
       </MDBContainer>
       <br />
       <Table />
-    </>
+    </div>
   );
 };
 

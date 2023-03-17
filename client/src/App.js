@@ -24,7 +24,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="history" element={<OrderHistory />} />
         <Route path="requests" element={<Requests />} />
         <Route path="/test" element={<Test />} />
       </Routes>

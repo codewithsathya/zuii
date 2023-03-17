@@ -1,7 +1,9 @@
 const Address = require("../models/address.model");
 const Drone = require("../models/drone.model");
 const User = require("../models/user.model")
-const Order = require("../models/order.model")
+const Order = require("../models/order.model");
+const { startDrone } = require("../drone-api");
+const { baseStationLocation } = require("../config");
 
 exports.book = async (req, res, next) => {
     try {
@@ -15,7 +17,7 @@ exports.book = async (req, res, next) => {
         }else{
             let { pickupLatitude, pickupLongitude } = req.body;
             if(!pickupLatitude || !pickupLongitude){
-                throw new Error("Latitude/longitude missing");
+                throw new Error("coordinates-missing");
             }
             pickupAddress = new Address({latitude: pickupLatitude, longitude: pickupLongitude});
             pickupAddress = await pickupAddress.save();
@@ -26,42 +28,34 @@ exports.book = async (req, res, next) => {
         }else{
             let { deliveryLatitude, deliveryLongitude } = req.body;
             if(!deliveryLatitude || !deliveryLongitude){
-                throw new Error("Latitude/longitude missing");
+                throw new Error("coordinates-missing");
             }
             deliveryAddress = new Address({latitude: deliveryLatitude, longitude: deliveryLongitude});
             deliveryAddress = await deliveryAddress.save();
         }
-
-        // let availableDrone = await Drone.findOneAndUpdate({isAvailable: true}, {isAvailable: false});
-        // if(!availableDrone){
-        //     throw new Error("No available drones");
-        // }
-
         let newOrder = new Order({
             createdBy: userId,
-            pickUpPoint: pickupAddress._id,
-            deliveryPoint: deliveryAddress._id,
-            // assignedDrone: availableDrone._id
+            pickupLocation: pickupAddress._id,
+            deliveryLocation: deliveryAddress._id,
         });
         newOrder = await newOrder.save();
 
         res.status(200).json(newOrder);
         next();
     } catch (error) {
-        console.log(error);
-        res.json({"error": "no-drones-available"});
+        res.json({"error": error.message});
     }
 }
 
 exports.track = async (req, res) => {
-
+    try {
+        
+    } catch (error) {
+        
+    }
 }
 
-exports.acceptOrder = (req, res, next) => acceptOrRejectOrder(req, res, next, "accept")
-
-exports.rejectOrder = (req, res, next) => acceptOrRejectOrder(req, res, next, "reject")
-
-const acceptOrRejectOrder = async (req, res, next, acceptOrReject) => {
+exports.acceptOrder = async (req, res, next) => {
     try {
         const userId = req.userId;
         let user = await User.findById(userId);
@@ -79,8 +73,47 @@ const acceptOrRejectOrder = async (req, res, next, acceptOrReject) => {
         if(order.status === "accepted"){
             throw new Error("order-already-accepted")
         }
-        await Order.findByIdAndUpdate(orderId, { status: acceptOrReject });
-        res.status(200).json({"status": "order-" + acceptOrReject + "ed"})
+        let availableDrone = await Drone.findOneAndUpdate({isAvailable: true}, {isAvailable: false});
+        if(!availableDrone){
+            throw new Error("no-available-drones");
+        }
+        let updatedOrder = await Order.findByIdAndUpdate(orderId, { status: "accepted", assignedDrone: availableDrone._id }, { new: true });
+        // starts dummy drone
+        startDrone(availableDrone._id, baseStationLocation, order.pickupLocation, order.deliveryLocation);
+        res.status(200).json({"status": "order-accepted", ...updatedOrder})
+        next();
+    } catch (error) {
+        switch(error.message){
+            case "not-admin":
+                res.status(401).json({"error": error.message})
+                break;
+            case "order-not-found" || "order-already-rejected" || "order-already-accepted" || "no-available-drones":
+                res.status(404).json({"error": error.message});
+                break;
+        }
+    }
+}
+
+exports.rejectOrder = async (req, res, next) => {
+    try {
+        const userId = req.userId;
+        let user = await User.findById(userId);
+        if(!user.isAdmin){
+            throw new Error("not-admin");
+        }
+        const { orderId } = req.body;
+        let order = Order.findById(orderId);
+        if(!order){
+            throw new Error("order-not-found");
+        }
+        if(order.status === "rejected"){
+            throw new Error("order-already-rejected")
+        }
+        if(order.status === "accepted"){
+            throw new Error("order-already-accepted")
+        }
+        await Order.findByIdAndUpdate(orderId, { status: "rejected" });
+        res.status(200).json({"status": "order-rejected"})
         next();
     } catch (error) {
         switch(error.message){
