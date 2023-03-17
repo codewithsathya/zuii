@@ -43,7 +43,7 @@ export default function Maps(props) {
       {selectPosition && (
         <Marker position={locationSelection} icon={icon}>
           <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
+            Pickup Location <br /> Drag me!!
           </Popup>
         </Marker>
       )}

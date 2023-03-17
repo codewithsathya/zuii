@@ -38,7 +38,6 @@ export default function SearchBox(props) {
             variant="contained"
             color="primary"
             onClick={() => {
-              // Search
               const params = {
                 q: searchText,
                 format: "json",
