@@ -12,3 +12,10 @@ export const getOrderList = () => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getRequests = () => async (dispatch) => {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+};

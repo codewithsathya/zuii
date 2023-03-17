@@ -16,3 +16,5 @@ export const googleSignIn = (formData) =>
   API.post("/api/user/googleLogin", formData);
 
 export const getOrderList = () => API.get("/api/user/listOrders");
+
+export const getRequests = () => API.get("/api/user/requests");

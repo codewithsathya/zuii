@@ -6,20 +6,13 @@ import { getOrderList } from "../actions/orders";
 import NavBar from "../components/NavBar";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(getOrderList());
-  };
-
   return (
     <div>
-      {/* <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center"> */}
       <NavBar />
       <br />
       <br />
       <div className="text-center">
-        <MDBBtn onClick={handleClick}>Book</MDBBtn>
+        <MDBBtn>Book</MDBBtn>
       </div>
       <br />
       <br />
