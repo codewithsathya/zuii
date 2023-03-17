@@ -21,10 +21,10 @@ const AdminTableRow = ({ order }) => {
         </div>
       </td>
       <td>
-        {order?.pickUpPoint.latitude}, {order?.pickUpPoint.longitude}
+        {order?.pickUpPoint?.latitude}, {order?.pickUpPoint?.longitude}
       </td>
       <td>
-        {order?.deliveryPoint.latitude}, {order?.deliveryPoint.longitude}
+        {order?.deliveryPoint?.latitude}, {order?.deliveryPoint?.longitude}
       </td>
       {order?.status !== "accepted" && (
         <>
