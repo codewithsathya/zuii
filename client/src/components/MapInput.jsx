@@ -42,6 +42,7 @@ function DraggableMarker({ position, setPosition }) {
   );
 
   const toggleDraggable = useCallback(() => {
+    console.log("toggleDraggable");
     setDraggable((d) => !d);
   }, []);
 
@@ -50,15 +51,17 @@ function DraggableMarker({ position, setPosition }) {
   }, [position]);
 
   const map = useMapEvents({
-    click() {
-      console.log("click");
-      map.locate();
+    click(e) {
+      setPosition(e.latlng);
     },
     locationfound(e) {
-      setPosition(e?.latlng);
-      map.flyTo(e?.latlng, map.getZoom());
+      setPosition(e.latlng);
     },
   });
+
+  useEffect(() => {
+    map.locate();
+  }, []);
 
   return (
     <>

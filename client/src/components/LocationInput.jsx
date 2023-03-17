@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SearchBox from "../components/MapSearchBox";
-import Maps from "../components/MapInput";
+import SearchBox from "./MapSearchBox";
+import Maps from "./MapInput";
 import Box from "@mui/material/Box";
 
 function LocationInput() {
