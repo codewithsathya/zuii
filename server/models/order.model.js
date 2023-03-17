@@ -27,11 +27,11 @@ const orderSchema = mongoose.Schema({
     assignedDrone: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Drone",
-        required: true,
         autopopulate: true
     },
     status: {
         type: String,
+        enum: ["pending", "accepted", "rejected"],
         default: "pending"
     }
 })

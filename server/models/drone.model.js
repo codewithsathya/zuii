@@ -10,7 +10,7 @@ const droneSchema = mongoose.Schema({
         enum: ["storeroom", "pickup", "delivery"],
         default: "storeroom",
     },
-    });
+});
 
 const Drone = mongoose.model("Drone", droneSchema);
 module.exports = Drone;

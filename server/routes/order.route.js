@@ -4,9 +4,9 @@ const auth = require("../middlewares/auth");
 const router = express.Router();
 
 router.post("/book", auth, orderController.book);
-router.get("/token", auth, (req, res) => {
-    console.log("Hello wojsaskjdkgjak")
-    res.send("Hello world");
-});
+
+router.post("/acceptOrder", auth, orderController.acceptOrder)
+
+router.post("/rejectOrder", auth, orderController.rejectOrder)
 
 module.exports = router;
