@@ -11,6 +11,8 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const routes = require("./routes");
 const { getLocation, startDrone } = require("./drone-api");
+const { baseStationLocation } = require("./config");
+const Drone = require("./models/drone.model");
 
 // Security
 app.use(helmet());
@@ -49,6 +51,14 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 3000;
 
+function areSameAddress(location1, location2){
+    if(location1.lat === location2.lat && location1.lng === location2.lng){
+        return true;
+    }else {
+        return false;
+    }
+}
+
 let server, io;
 const postMongoConnection = () => {
     server = app.listen(port, () => console.log(`Listening to port ${port}`));
@@ -60,13 +70,17 @@ const postMongoConnection = () => {
     })
 
     io.on("connection", (socket) => {
-        let droneId, userToken;
+        let droneId, userToken, orderDetails, isAdmin;
         console.log("Connected to socket")
         socket.on("setup", (order) => {
             try {
                 droneId = order.droneId;
-
                 userToken = order.userToken;
+                orderDetails = order;
+
+                const decodedData = jwt.verify(order.userToken, `${process.env.JWT_SECRET_KEY}`);
+                isAdmin = decodedData.isAdmin;
+
                 socket.join(order.userId);
                 socket.emit("connected");
             } catch (error) {
@@ -79,11 +93,32 @@ const postMongoConnection = () => {
                 if(!droneId){
                     return;
                 }
-                console.log(droneId);
                 let droneLocation = getLocation(droneId);
-                console.log(droneLocation);
+                if(!isAdmin && areSameAddress(droneLocation, orderDetails.deliveryLocation)){
+                    socket.emit("order-delivered")
+                    socket.leave();
+                }
                 socket.emit("locationupdate", droneLocation);
             }, 200)
+        })
+
+        socket.on("get-all-locations", async () => {
+            let drones = await Drone.find();
+            if(isAdmin){
+                setInterval(() => {
+                    for(let drone of drones){
+                        let droneLocation;
+                        if(drone.isAvailable){
+                            droneLocation = baseStationLocation;
+                        }else{
+                            droneLocation = getLocation(drone._id);
+                        }
+                        socket.emit("update-locations", { ...drone, ...droneLocation })
+                    }
+                }, 200)
+            }else{
+                socket.emit("authorization-error")
+            }
         })
 
         socket.off("setup", () => {
