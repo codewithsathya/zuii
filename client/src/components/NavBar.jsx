@@ -13,6 +13,7 @@ import {
 import AuthModal from "./AuthModal";
 import Avatar from "@mui/material/Avatar";
 import { useSelector } from "react-redux";
+import { ReactComponent as Logo} from "../logo.svg"
 
 export default function NavBar() {
   const [showBasic, setShowBasic] = useState(false);
@@ -21,7 +22,7 @@ export default function NavBar() {
   return (
     <MDBNavbar expand="lg" light bgColor="light">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="#">Brand</MDBNavbarBrand>
+        <MDBNavbarBrand href="#"><Logo /></MDBNavbarBrand>
 
         <MDBNavbarToggler
           aria-controls="navbarSupportedContent"
