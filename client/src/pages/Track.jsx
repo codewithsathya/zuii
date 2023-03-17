@@ -7,27 +7,25 @@ import { useSelector } from "react-redux";
 
 const Track = () => {
   const { orderId } = useParams();
-  // const orderId = queryParams.get("orderId");
-  console.log(orderId);
-  const currOrder = useSelector((state) => state.order.orderList.filter((order) => order._id === orderId))[0];
-
+  const currOrder = useSelector((state) =>
+    state.order.orderList.filter((order) => order._id === orderId)
+  )[0];
   const token = JSON.parse(localStorage.getItem("profile")).token;
-
-  console.log(currOrder, " track", token);
-
   const baseStationLocation = { lat: 20.149642, lng: 85.673601 };
-
   const [droneLocation, setDroneLocation] = useState(baseStationLocation);
-
   const order = {
     droneId: currOrder?.assignedDrone?._id,
     baseStationLocation,
-    pickupLocation: { lat: currOrder?.pickUpPoint?.latitude, lng: currOrder?.pickUpPoint?.longitude },
-    deliveryLocation: { lat: currOrder?.deliveryPoint?.latitude, lng: currOrder?.deliveryPoint?.longitude },
-    userToken: token
+    pickupLocation: {
+      lat: currOrder?.pickUpPoint?.latitude,
+      lng: currOrder?.pickUpPoint?.longitude,
+    },
+    deliveryLocation: {
+      lat: currOrder?.deliveryPoint?.latitude,
+      lng: currOrder?.deliveryPoint?.longitude,
+    },
+    userToken: token,
   };
-
-  console.log(order, "kaskdkaks");
 
   useEffect(() => {
     const socket = io.connect("http://localhost:3000");
@@ -45,6 +43,9 @@ const Track = () => {
       }
       setDroneLocation(args[0]);
     });
+    socket.on("disconnect", () => {
+      socket.disconnect();
+    });
     return () => {
       socket.disconnect();
     };
@@ -58,9 +59,6 @@ const Track = () => {
         deliveryLocation={order?.deliveryLocation}
         droneLocation={droneLocation}
       />
-      {console.log(order?.pickupLocation)};
-      {console.log(order?.deliveryLocation)}
-      {console.log(order?.droneLocation)};
     </LayoutWrapper>
   );
 };
