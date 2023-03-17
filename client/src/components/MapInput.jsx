@@ -42,6 +42,7 @@ function DraggableMarker({ position, setPosition }) {
   );
 
   const toggleDraggable = useCallback(() => {
+    console.log("toggleDraggable");
     setDraggable((d) => !d);
   }, []);
 
@@ -50,15 +51,17 @@ function DraggableMarker({ position, setPosition }) {
   }, [position]);
 
   const map = useMapEvents({
-    click() {
-      console.log("click");
-      map.locate();
+    click(e) {
+      setPosition(e.latlng);
     },
     locationfound(e) {
-      setPosition(e?.latlng);
-      map.flyTo(e?.latlng, map.getZoom());
+      setPosition(e.latlng);
     },
   });
+
+  useEffect(() => {
+    map.locate();
+  }, []);
 
   return (
     <>
@@ -97,7 +100,7 @@ function ResetCenterView(props) {
 }
 
 export default function Maps(props) {
-  const { selectPosition, setSelectPosition } = props;
+  const { selectPosition, setSelectPosition, staticLocation } = props;
 
   return (
     <MapContainer
@@ -109,6 +112,13 @@ export default function Maps(props) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=1gz0yfXteTVOtuh7LQIB"
       />
+      {staticLocation && (
+        <Marker position={staticLocation} icon={icon}>
+          <Popup>
+            <span>Pickup Location</span>
+          </Popup>
+        </Marker>
+      )}
       <DraggableMarker
         position={selectPosition}
         setPosition={setSelectPosition}
