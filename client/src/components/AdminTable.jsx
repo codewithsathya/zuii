@@ -13,17 +13,21 @@ import {
   MDBTabsContent,
   MDBTabsPane,
 } from "mdb-react-ui-kit";
+import { useDispatch, useSelector } from "react-redux";
+import AdminTableRow from "./AdminTableRow";
+import Skeleton from "@mui/material/Skeleton";
 
 export default function AdminTable() {
   const [basicActive, setBasicActive] = useState("tab1");
+  const { orderList, isLoading } = useSelector((state) => state.order);
 
   const handleBasicClick = (value) => {
     if (value === basicActive) {
       return;
     }
-
     setBasicActive(value);
   };
+
   return (
     <MDBContainer breakpoint="sm">
       <MDBTabs className="mb-3">
@@ -46,122 +50,52 @@ export default function AdminTable() {
       </MDBTabs>
 
       <MDBTabsContent>
-        <MDBTabsPane show={basicActive === "tab1"}>
-          <MDBTable align="middle" responsive>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
+        {isLoading && <Skeleton animation="wave" />}
+        {!isLoading && (
+          <>
+            <MDBTabsPane show={basicActive === "tab1"}>
+              <MDBTable align="middle" responsive>
+                <MDBTableHead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
 
-                <th scope="col">Accept</th>
-                <th scope="col">Reject</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                      alt=""
-                      style={{ width: "45px", height: "45px" }}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">Alex Ray</p>
-                      <p className="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>20.215296, 85.867792</td>
-                <td>20.215296, 85.867792</td>
-                <td>
-                  <MDBBtn color="success" href="/">
-                    Accept
-                  </MDBBtn>
-                </td>
-                <td>
-                  <MDBBtn color="danger" href="/">
-                    Reject
-                  </MDBBtn>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                      alt=""
-                      style={{ width: "45px", height: "45px" }}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">Alex Ray</p>
-                      <p className="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>20.215296, 85.867792</td>
-                <td>20.215296, 85.867792</td>
-                <td>
-                  <MDBBtn color="success" href="/">
-                    Accept
-                  </MDBBtn>
-                </td>
-                <td>
-                  <MDBBtn color="danger" href="/">
-                    Reject
-                  </MDBBtn>
-                </td>
-              </tr>
-            </MDBTableBody>
-          </MDBTable>
-        </MDBTabsPane>
-        <MDBTabsPane show={basicActive === "tab2"}>
-          <MDBTable align="middle" responsive>
-            <MDBTableHead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-
-                <th scope="col">Accept</th>
-                <th scope="col">Reject</th>
-              </tr>
-            </MDBTableHead>
-            <MDBTableBody>
-              <tr>
-                <td>
-                  <div className="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                      alt=""
-                      style={{ width: "45px", height: "45px" }}
-                      className="rounded-circle"
-                    />
-                    <div className="ms-3">
-                      <p className="fw-bold mb-1">Alex Ray</p>
-                      <p className="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>20.215296, 85.867792</td>
-                <td>20.215296, 85.867792</td>
-                <td>
-                  <MDBBtn color="success" href="/">
-                    Accept
-                  </MDBBtn>
-                </td>
-                <td>
-                  <MDBBtn color="danger" href="/">
-                    Reject
-                  </MDBBtn>
-                </td>
-              </tr>
-            </MDBTableBody>
-          </MDBTable>
-        </MDBTabsPane>
+                    <th scope="col">Accept</th>
+                    <th scope="col">Reject</th>
+                  </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                  {orderList?.map(
+                    (order) =>
+                      order?.status === "pending" && (
+                        <AdminTableRow key={order._id} order={order} />
+                      )
+                  )}
+                </MDBTableBody>
+              </MDBTable>
+            </MDBTabsPane>
+            <MDBTabsPane show={basicActive === "tab2"}>
+              <MDBTable align="middle" responsive>
+                <MDBTableHead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                  </tr>
+                </MDBTableHead>
+                <MDBTableBody>
+                  {orderList?.map(
+                    (order) =>
+                      order?.status === "accepted" && (
+                        <AdminTableRow key={order._id} order={order} />
+                      )
+                  )}
+                </MDBTableBody>
+              </MDBTable>
+            </MDBTabsPane>
+          </>
+        )}
       </MDBTabsContent>
     </MDBContainer>
   );

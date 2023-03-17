@@ -1,34 +1,15 @@
-import React, { useEffect } from "react";
-import {
-  MDBContainer,
-  MDBBadge,
-  MDBBtn,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
-} from "mdb-react-ui-kit";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
+import { useSelector } from "react-redux";
 import TableRows from "./TableRows";
-import { getOrderList } from "../actions/orders";
 import Skeleton from "@mui/material/Skeleton";
-import { Typography } from "@mui/material";
 
 export default function Table() {
   const { orderList, isLoading } = useSelector((state) => state.order);
   const { user } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
-  // console.log(orderList);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getOrderList());
-    }
-  }, [user, dispatch]);
 
   return (
-    <MDBContainer breakpoint="sm">
-      {!user && <Typography>You need to login to view your history</Typography>}
+    <>
       {user && (
         <MDBTable align="middle" responsive>
           <MDBTableHead>
@@ -51,6 +32,6 @@ export default function Table() {
         </MDBTable>
       )}
       {isLoading && <Skeleton animation="wave" />}
-    </MDBContainer>
+    </>
   );
 }

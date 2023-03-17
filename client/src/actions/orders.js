@@ -12,3 +12,15 @@ export const getOrderList = () => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getRequests = () => async (dispatch) => {
+  try {
+    dispatch(orderActions.startLoading());
+    const { data } = await api.getRequests();
+    // console.log(data);
+    dispatch(orderActions.fetchOrdersList({ data }));
+    dispatch(orderActions.endLoading());
+  } catch (err) {
+    console.log(err);
+  }
+};
