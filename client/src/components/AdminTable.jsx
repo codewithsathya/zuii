@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import AdminTableRow from "./AdminTableRow";
 import Skeleton from "@mui/material/Skeleton";
+import { Typography } from "@material-ui/core";
 
 export default function AdminTable() {
   const [basicActive, setBasicActive] = useState("tab1");
@@ -29,7 +30,7 @@ export default function AdminTable() {
   };
 
   return (
-    <MDBContainer breakpoint="sm">
+    <>
       <MDBTabs className="mb-3">
         <MDBTabsItem>
           <MDBTabsLink
@@ -49,54 +50,58 @@ export default function AdminTable() {
         </MDBTabsItem>
       </MDBTabs>
 
-      <MDBTabsContent>
-        {isLoading && <Skeleton animation="wave" />}
-        {!isLoading && (
-          <>
-            <MDBTabsPane show={basicActive === "tab1"}>
-              <MDBTable align="middle" responsive>
-                <MDBTableHead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
+      {orderList.length === 0 && <Typography>No Orders</Typography>}
 
-                    <th scope="col">Accept</th>
-                    <th scope="col">Reject</th>
-                  </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                  {orderList?.map(
-                    (order) =>
-                      order?.status === "pending" && (
-                        <AdminTableRow key={order._id} order={order} />
-                      )
-                  )}
-                </MDBTableBody>
-              </MDBTable>
-            </MDBTabsPane>
-            <MDBTabsPane show={basicActive === "tab2"}>
-              <MDBTable align="middle" responsive>
-                <MDBTableHead>
-                  <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
-                  </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                  {orderList?.map(
-                    (order) =>
-                      order?.status === "accepted" && (
-                        <AdminTableRow key={order._id} order={order} />
-                      )
-                  )}
-                </MDBTableBody>
-              </MDBTable>
-            </MDBTabsPane>
-          </>
-        )}
-      </MDBTabsContent>
-    </MDBContainer>
+      {orderList.length > 0 && (
+        <MDBTabsContent>
+          {isLoading && <Skeleton animation="wave" />}
+          {!isLoading && (
+            <>
+              <MDBTabsPane show={basicActive === "tab1"}>
+                <MDBTable align="middle" responsive>
+                  <MDBTableHead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+
+                      <th scope="col">Accept</th>
+                      <th scope="col">Reject</th>
+                    </tr>
+                  </MDBTableHead>
+                  <MDBTableBody>
+                    {orderList?.map(
+                      (order) =>
+                        order?.status === "pending" && (
+                          <AdminTableRow key={order._id} order={order} />
+                        )
+                    )}
+                  </MDBTableBody>
+                </MDBTable>
+              </MDBTabsPane>
+              <MDBTabsPane show={basicActive === "tab2"}>
+                <MDBTable align="middle" responsive>
+                  <MDBTableHead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                    </tr>
+                  </MDBTableHead>
+                  <MDBTableBody>
+                    {orderList?.map(
+                      (order) =>
+                        order?.status === "accepted" && (
+                          <AdminTableRow key={order._id} order={order} />
+                        )
+                    )}
+                  </MDBTableBody>
+                </MDBTable>
+              </MDBTabsPane>
+            </>
+          )}
+        </MDBTabsContent>
+      )}
+    </>
   );
 }

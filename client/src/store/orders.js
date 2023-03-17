@@ -12,6 +12,7 @@ const orderSlice = createSlice({
   reducers: {
     fetchOrdersList: (state, action) => {
       state.orderList = action.payload?.data;
+      console.log(state.orderList);
     },
     addOrder: (state, action) => {
       state.orderList.push(action.payload?.data);

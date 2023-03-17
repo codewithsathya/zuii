@@ -3,6 +3,7 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import { useSelector } from "react-redux";
 import TableRows from "./TableRows";
 import Skeleton from "@mui/material/Skeleton";
+import { Typography } from "@material-ui/core";
 
 export default function Table() {
   const { orderList, isLoading } = useSelector((state) => state.order);
@@ -10,7 +11,7 @@ export default function Table() {
 
   return (
     <>
-      {user && (
+      {user && orderList.length > 0 && (
         <MDBTable align="middle" responsive>
           <MDBTableHead>
             <tr>
@@ -30,6 +31,9 @@ export default function Table() {
             </MDBTableBody>
           )}
         </MDBTable>
+      )}
+      {!isLoading && orderList.length === 0 && (
+        <Typography>No Booking History</Typography>
       )}
       {isLoading && <Skeleton animation="wave" />}
     </>
