@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-
+import Map from "../components/Map";
 import LayoutWrapper from "../components/LayoutWrapper";
+
 const SERVER_ROUTE = "http://localhost:3000/";
 
 const Test = () => {
   const [queryParams] = useSearchParams();
   const orderId = queryParams.get("orderId");
 
-  console.log(orderId);
-
-  // const [location, setLocation] = useState(null);
   const baseStationLocation = { lat: 20.1486222, lng: 85.6697336};
   const [droneLocation, setDroneLocation] = useState(baseStationLocation);
 
   // const { orderId } = useParams();
-
   
   const order = {
     droneId: "drone1",
