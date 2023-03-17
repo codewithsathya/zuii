@@ -46,7 +46,8 @@ const Home = () => {
         {user && (
           <div className="text-center">
             <MDBBtn onClick={handleBooking}>
-              Book a drone ( {user.isAdmin && numberOfFree} )
+              Book a drone {user.isAdmin && "("} {user.isAdmin && numberOfFree}{" "}
+              {user.isAdmin && ")"}
             </MDBBtn>
           </div>
         )}
