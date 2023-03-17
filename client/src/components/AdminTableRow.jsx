@@ -3,6 +3,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import Avatar from "@mui/material/Avatar";
 import { useDispatch } from "react-redux";
 import { acceptOrder, rejectOrder } from "../actions/orders";
+import { useNavigate } from "react-router-dom";
 
 const AdminTableRow = ({ order }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,12 @@ const AdminTableRow = ({ order }) => {
 
   const handleRejectOrder = () => {
     dispatch(rejectOrder(order._id));
+  };
+
+  const navigate = useNavigate();
+
+  const handleClickTrack = () => {
+    navigate(`/track/${order._id}`);
   };
 
   return (
@@ -50,6 +57,15 @@ const AdminTableRow = ({ order }) => {
               Reject
             </MDBBtn>
           </td>
+        </>
+      )}
+      {order?.status === "accepted" && (
+        <>
+        <td>
+           <MDBBtn color="success" onClick={handleClickTrack}>
+          Track
+        </MDBBtn>
+        </td>
         </>
       )}
     </tr>

@@ -71,6 +71,7 @@ export default function AdminTable() {
 
                       <th scope="col">Accept</th>
                       <th scope="col">Reject</th>
+                      
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
@@ -90,6 +91,7 @@ export default function AdminTable() {
                       <th scope="col">Name</th>
                       <th scope="col">From</th>
                       <th scope="col">To</th>
+                      <th scope="col">Track</th>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
