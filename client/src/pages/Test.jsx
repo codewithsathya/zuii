@@ -1,6 +1,6 @@
 import React from "react";
 import Map from "../components/Map";
-import Admintable from "../components/admin-table";
+import Admintable from "../components/AdminTable";
 import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 const Test = () => {
   return (
