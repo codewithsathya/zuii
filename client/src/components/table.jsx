@@ -11,7 +11,7 @@ import {
 export default function Table() {
   return (
     <MDBContainer breakpoint="sm">
-      <MDBTable align="middle">
+      <MDBTable align="middle" responsive>
         <MDBTableHead>
           <tr>
             <th scope="col">Date</th>
