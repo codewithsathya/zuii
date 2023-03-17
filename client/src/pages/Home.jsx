@@ -3,18 +3,18 @@ import NavBar from "../components/NavBar";
 import Table from "../components/Table";
 import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
 import { useDispatch } from "react-redux";
-import { test } from "../actions/user";
+import { getOrderList } from "../actions/orders";
 
 const Home = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(test());
+    dispatch(getOrderList());
   };
 
   return (
     <div>
-    {/* <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center"> */}
+      {/* <div className="mx-auto flex h-full w-full max-w-[1240px] items-center justify-center"> */}
       <NavBar />
       <br />
       <br />

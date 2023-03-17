@@ -1,7 +1,6 @@
 const express = require("express");
 const userRoute = require("./user.route");
 const orderRoute = require("./order.route");
-const droneRoute = require("./drone.route");
 
 const router = express.Router();
 
@@ -13,10 +12,6 @@ const routes = [
   {
     path: "/order",
     route: orderRoute,
-  },
-  {
-    path: "/drone",
-    route: droneRoute,
   },
 ];
 

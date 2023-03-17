@@ -1,4 +1,5 @@
 const { createError } = require("../error");
+const Address = require("../models/address.model");
 const Order = require("../models/order.model");
 const User = require("../models/user.model");
 
@@ -17,6 +18,17 @@ exports.listOrders = async (req, res, next) => {
     //   path: "orders.assignedDrone",
     //   select: "_id isAvailable currentLocation",
     // });
+
+    // let orders = currUser.orders;
+    currUser = await Address.populate(currUser, {
+      path: "orders.pickUpPoint",
+      select: "latitude longitude",
+    });
+
+    currUser = await Address.populate(currUser, {
+      path: "orders.deliveryPoint",
+      select: "latitude longitude",
+    });
 
     res.status(200).json({ orders: currUser.orders });
   } catch (err) {

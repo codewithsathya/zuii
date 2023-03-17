@@ -3,7 +3,7 @@ const { createError } = require("../error");
 
 const auth = async (req, res, next) => {
   try {
-    console.log(req.headers);
+    // console.log(req.headers);
     const token = req.headers.authorization.split(" ")[1];
     console.log(token);
 

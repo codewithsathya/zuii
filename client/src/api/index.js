@@ -15,4 +15,4 @@ API.interceptors.request.use((req) => {
 export const googleSignIn = (formData) =>
   API.post("/api/user/googleLogin", formData);
 
-export const test = () => API.post("/api/user/test");
+export const getOrderList = () => API.get("/api/user/listOrders");
