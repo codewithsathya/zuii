@@ -134,7 +134,7 @@ exports.rejectOrder = async (req, res, next) => {
       throw new Error("not-admin");
     }
     const { orderId } = req.body;
-    let order = Order.findById(orderId);
+    let order = await Order.findById(orderId);
     if (!order) {
       throw new Error("order-not-found");
     }
@@ -146,15 +146,12 @@ exports.rejectOrder = async (req, res, next) => {
     }
     await Order.findByIdAndUpdate(orderId, { status: "rejected" });
     res.status(200).json({ status: "order-rejected" });
-    next();
   } catch (error) {
     switch (error.message) {
       case "not-admin":
         res.status(401).json({ error: error.message });
         break;
-      case "order-not-found" ||
-        "order-already-rejected" ||
-        "order-already-accepted":
+      default:
         res.status(404).json({ error: error.message });
         break;
     }

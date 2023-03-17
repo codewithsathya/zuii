@@ -26,6 +26,11 @@ const orderSlice = createSlice({
         }
       });
     },
+    reject: (state, action) => {
+      state.orderList = state.orderList.filter((order) => {
+        return order._id !== action.payload?.data;
+      });
+    },
     startLoading: (state) => {
       state.isLoading = true;
     },

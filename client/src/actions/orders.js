@@ -47,3 +47,12 @@ export const acceptOrder = (orderId) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const rejectOrder = (orderId) => async (dispatch) => {
+  try {
+    await api.rejectOrder(orderId);
+    dispatch(orderActions.reject({ data: orderId }));
+  } catch (err) {
+    console.log(err);
+  }
+};

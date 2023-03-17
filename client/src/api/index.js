@@ -23,3 +23,6 @@ export const bookOrder = (orderCord) => API.post("/api/order/book", orderCord);
 
 export const acceptOrder = (orderId) =>
   API.post("/api/order/acceptOrder", { orderId });
+
+export const rejectOrder = (orderId) =>
+  API.post("/api/order/rejectOrder", { orderId });

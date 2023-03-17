@@ -2,14 +2,17 @@ import React from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
 import Avatar from "@mui/material/Avatar";
 import { useDispatch } from "react-redux";
-import { acceptOrder } from "../actions/orders";
+import { acceptOrder, rejectOrder } from "../actions/orders";
 
 const AdminTableRow = ({ order }) => {
   const dispatch = useDispatch();
 
   const handleAcceptOrder = () => {
-    console.log("clicked acc");
     dispatch(acceptOrder(order._id));
+  };
+
+  const handleRejectOrder = () => {
+    dispatch(rejectOrder(order._id));
   };
 
   return (
@@ -43,7 +46,7 @@ const AdminTableRow = ({ order }) => {
             </MDBBtn>
           </td>
           <td>
-            <MDBBtn color="danger" href="/">
+            <MDBBtn color="danger" onClick={handleRejectOrder}>
               Reject
             </MDBBtn>
           </td>
