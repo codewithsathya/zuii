@@ -61,7 +61,7 @@ function DraggableMarker({ position, setPosition }) {
 
   useEffect(() => {
     map.locate();
-  }, []);
+  }, [map]);
 
   return (
     <>
@@ -94,12 +94,12 @@ function ResetCenterView(props) {
         animate: true,
       });
     }
-  }, [selectPosition]);
+  }, [selectPosition, map]);
 
   return null;
 }
 
-export default function Maps(props) {
+export default function MapInput(props) {
   const { selectPosition, setSelectPosition, staticLocation } = props;
 
   return (

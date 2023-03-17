@@ -18,3 +18,5 @@ export const googleSignIn = (formData) =>
 export const getOrderList = () => API.get("/api/user/listOrders");
 
 export const getRequests = () => API.get("/api/user/requests");
+
+export const bookOrder = (orderCord) => API.post("/api/order/book", orderCord);
