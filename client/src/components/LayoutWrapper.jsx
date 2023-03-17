@@ -1,23 +1,54 @@
 import SectionContainer from "./SectionContainer"
 import { ReactComponent as Logo } from "../logo.svg"
+import { useSelector } from "react-redux";
+import AuthModal from "./AuthModal";
+import Avatar from "@mui/material/Avatar";
 
 const LayoutWrapper = ({children}) => {
+    const { user } = useSelector((state) => state.auth);
     return (
-        <SectionContainer>
-            <div className="flex h-screen flex-col justify-between font-sans">
-                <header className="flex items-center justify-between py-2">
-                    <div><a href="https://zuii.codewithsathya.com" aria-label=""><Logo className="mx-[-75px]"/></a></div>
-                    <div className="flex items-center text-base leading-5">
-                        <div className="hidden sm:block">
-                            <a href="/api/auth" className="p-1 font-medium text-gray-900 hover:text-[#008cff] sm:p-4">Sign in</a>
+        <div className="flex h-screen w-full flex-col justify-between font-sans">
+            <header className="flex w-full items-center justify-between">
+                <div className="mx-[5px] md:mx-3">
+                    <a href="https://zuii.codewithsathya.com" aria-label="">
+                        <Logo className="max-w-[200px] overflow-y-hidden" />
+                    </a>
+                </div>
+                <div className="flex items-center text-base leading-5">
+                    <div className="hidden sm:flex">
+                        {user && <Avatar
+                            sx={{ bgcolor: "lightblue", mr: "20px" }}
+                            alt="Remy Sharp"
+                            src={user?.profilePic}
+                        >
+                            {user?.name.charAt(0)}
+                        </Avatar>}
+                        <div className="p-1 mr-2 font-medium text-gray-900 hover:text-[#008cff]">
+                            <AuthModal />
                         </div>
                     </div>
-                </header>
-                <main className="mb-auto">
-                    {children}
-                </main>
+                    <div className="sm:hidden">
+                        <div className="p-1 mr-2 font-medium text-gray-900 hover:text-[#008cff]">
+                            Logout
+                            {/* <AuthModal /> */}
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <hr className="mt-0"></hr>
+            <div className="flex">
+                <div>
+                    <h1>Drone delivery</h1>
+                    <h2>Experience lightning-fast drone delivery. Order now!</h2>
+                </div>
+                <div>
+                    <img src="" alt="" />
+                </div>
             </div>
-        </SectionContainer>
+            <main className="mb-auto">
+                {children}
+            </main>
+        </div>
     )
 }
 
