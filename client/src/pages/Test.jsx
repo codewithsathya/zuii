@@ -1,18 +1,33 @@
-import React from "react";
-import Map from "../components/Map";
-import Admintable from "../components/AdminTable";
-import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
-import LocationInput from "../components/LocationInput";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { useParams } from "react-router-dom";
 
 const Test = () => {
-  const { pickUpCord } = useSelector((state) => state.order);
+  const [location, setLocation] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    const socket = io.connect(SERVER_ROUTE);
+    socket.emit("setup", { id });
+    socket.on("connected", () => {
+      console.log("User successfully connected");
+    });
+    socket.on("failed", () => {
+      console.log("Connection failed");
+    });
+    socket.on("locationupdate", (...args) => {
+      console.log(args);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <>
       <h1>
-        Pickup Lat: {pickUpCord.lat}
-        Lng: {pickUpCord.lng}
+        lat: {location.lat}
+        lng: {location.lng}
       </h1>
     </>
   );
