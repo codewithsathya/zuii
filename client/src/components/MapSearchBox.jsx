@@ -70,7 +70,10 @@ export default function SearchBox(props) {
                 <ListItem
                   button
                   onClick={() => {
-                    setSelectPosition(item);
+                    setSelectPosition({
+                      lat: Number(item?.lat),
+                      lng: Number(item?.lon),
+                    });
                   }}
                 >
                   <ListItemIcon>

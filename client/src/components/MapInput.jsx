@@ -1,5 +1,18 @@
-import React, { useEffect } from "react";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -11,13 +24,70 @@ const icon = L.icon({
 
 const position = [51.505, -0.09];
 
+function DraggableMarker({ position, setPosition }) {
+  const [draggable, setDraggable] = useState(false);
+
+  const markerRef = useRef(null);
+
+  const eventHandlers = useMemo(
+    () => ({
+      dragend() {
+        const marker = markerRef.current;
+        if (marker != null) {
+          setPosition(marker.getLatLng());
+        }
+      },
+    }),
+    []
+  );
+
+  const toggleDraggable = useCallback(() => {
+    setDraggable((d) => !d);
+  }, []);
+
+  useEffect(() => {
+    console.log("Position: ", position);
+  }, [position]);
+
+  const map = useMapEvents({
+    click() {
+      console.log("click");
+      map.locate();
+    },
+    locationfound(e) {
+      setPosition(e?.latlng);
+      map.flyTo(e?.latlng, map.getZoom());
+    },
+  });
+
+  return (
+    <>
+      <Marker
+        draggable={draggable}
+        eventHandlers={eventHandlers}
+        position={position}
+        ref={markerRef}
+        icon={icon}
+      >
+        <Popup minWidth={90}>
+          <span onClick={toggleDraggable}>
+            {draggable
+              ? "PICKUP Marker is draggable"
+              : "Click here to make PICKUP marker draggable"}
+          </span>
+        </Popup>
+      </Marker>
+    </>
+  );
+}
+
 function ResetCenterView(props) {
   const { selectPosition } = props;
   const map = useMap();
 
   useEffect(() => {
     if (selectPosition) {
-      map.setView(L.latLng(selectPosition?.lat, selectPosition?.lon), 15, {
+      map.setView(L.latLng(selectPosition?.lat, selectPosition?.lng), 15, {
         animate: true,
       });
     }
@@ -27,8 +97,7 @@ function ResetCenterView(props) {
 }
 
 export default function Maps(props) {
-  const { selectPosition } = props;
-  const locationSelection = [selectPosition?.lat, selectPosition?.lon];
+  const { selectPosition, setSelectPosition } = props;
 
   return (
     <MapContainer
@@ -40,13 +109,17 @@ export default function Maps(props) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://api.maptiler.com/maps/basic/256/{z}/{x}/{y}.png?key=1gz0yfXteTVOtuh7LQIB"
       />
-      {selectPosition && (
+      {/* {selectPosition && (
         <Marker position={locationSelection} icon={icon}>
           <Popup>
             Pickup Location <br /> Drag me!!
           </Popup>
         </Marker>
-      )}
+      )} */}
+      <DraggableMarker
+        position={selectPosition}
+        setPosition={setSelectPosition}
+      />
       <ResetCenterView selectPosition={selectPosition} />
     </MapContainer>
   );
