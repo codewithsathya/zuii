@@ -8,6 +8,7 @@ import AdminTable from "../components/AdminTable";
 import LayoutWrapper from "../components/LayoutWrapper";
 import AdImage from "../images/image1.jpg";
 import { useNavigate } from "react-router-dom";
+import { getFreeDrones } from "../actions/drone";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ const Home = () => {
       dispatch(getOrderList());
     } else if (user && user.isAdmin) {
       dispatch(getRequests());
+      dispatch(getFreeDrones());
     }
   }, [user, dispatch]);
 
   const navigate = useNavigate();
+  const { numberOfFree } = useSelector((state) => state.drone);
 
   const handleBooking = () => {
     navigate("/book");
@@ -42,7 +45,9 @@ const Home = () => {
 
         {user && (
           <div className="text-center">
-            <MDBBtn onClick={handleBooking}>Book a drone</MDBBtn>
+            <MDBBtn onClick={handleBooking}>
+              Book a drone ( {user.isAdmin && numberOfFree} )
+            </MDBBtn>
           </div>
         )}
 

@@ -26,3 +26,5 @@ export const acceptOrder = (orderId) =>
 
 export const rejectOrder = (orderId) =>
   API.post("/api/order/rejectOrder", { orderId });
+
+export const getFreeDrones = () => API.get("/api/drone/available");
