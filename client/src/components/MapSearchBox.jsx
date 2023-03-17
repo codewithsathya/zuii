@@ -6,6 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+import { MDBContainer, MDBTypography, MDBBtn } from "mdb-react-ui-kit";
 
 const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org/search?";
 
@@ -58,7 +59,7 @@ export default function SearchBox(props) {
         </div>
       </div>
       <div>
-        <List component="nav" aria-label="main mailbox folders">
+        <List component="nav" aria-label="main mailbox folders" style={{ width: {xs:'100vw', md:'50vw'}, height: '70vh', overflowY: 'scroll'}}>
           {listPlace.map((item) => {
             return (
               <div key={item?.place_id}>
@@ -75,16 +76,22 @@ export default function SearchBox(props) {
                     <img
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAB80lEQVRIic3Wu2tUQRQG8F98sIUPUNNZJLFUUPEBIa4KsRA1hY0WBnyBIATzJ2ivrcQi+CgUrbRIZ6WCsCqi2FgJ8dFoloW4YoiJrMWcZdfN7k12A+IHh7n3zDffmTlnZu7lP0AOoyjgR1gBl6JvWdiMt6i0sDfBaYmujL4cXmAHihgPQdiJM3UT6MdsM5GVGQFGcDbER/EB82Ff8BQHsQVf8bKZyIqMAMPRjqOMvbiD29gdvpsN3LZQlvJ8AkOYUsv9VPhOxvv3ViJZK5hdAqdaw1+dBHgf7dZor0v1KMYzbGvgLsCqjACPkMcRvMJrnGvgHI32YSuRrBXcxQz2oKdJfy92BedeJwG+4YaU54sWnpkL4RsLbkfolnJewVVp5wzhWviKwVkWzodYWTp4pzEdvsaadIQuTKjdPdW7aUL2VZOJNdIOORXvGzCpdtA+q6VmGMdizKLokYo2E0K/MRh9ecyF5cN3KDiVGDOm+Y4DB1CqE36GK9hXxxkJq2IAl4NbDVTC/mYBPgbhPvoWXetC9OFBaExWnfXnYD7a1WHtIlc3bq7qrN8Fg9L1sD5m8VxaeiFmVAqDjdgkneZ+Kb0DoTeN43jSbBa9uKVW5Hbsp/R9+KvIrfbxWhyOWW2PQd1YF/1l6ZvwCe9itY+lH4J/iz8Yqo2pSJJrIwAAAABJRU5ErkJggg=="
                       alt="Placeholder Image"
-                      style={{ width: 38, height: 38 }}
+                      style={{ width: 38, height: 38}}
                     />
                   </ListItemIcon>
                   <ListItemText primary={item?.display_name} />
                 </ListItem>
                 <Divider />
+           
               </div>
+            
             );
           })}
         </List>
+        <br />
+        <div className="text-center">
+               <MDBBtn href="/">Next</MDBBtn>
+             </div>
       </div>
     </div>
   );

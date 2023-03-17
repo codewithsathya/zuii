@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import OrderHistory from "./pages/OrderHistory";
 import Requests from "./pages/Requests";
 import Test from "./pages/Test";
+import Book from "./pages/Book";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/auth";
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="requests" element={<Requests />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/book" element={<Book />} />
       </Routes>
     </BrowserRouter>
   );
