@@ -46,6 +46,7 @@ export default function AuthModal() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          marginRight: "50px",
         }}
       >
         <MDBBtn rounded onClick={user ? handleLogout : handleOpen}>
