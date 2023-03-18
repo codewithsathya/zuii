@@ -72,7 +72,7 @@ export default function MapSearchBox(props) {
           aria-label="main mailbox folders"
           style={{
             width: { xs: "100vw", md: "50vw" },
-            height: "70vh",
+            height: "50vh",
             overflowY: "scroll",
           }}
         >
@@ -106,13 +106,6 @@ export default function MapSearchBox(props) {
         <div className="text-center">
           <MDBBtn
             onClick={() => {
-              // navigate("/test");
-              // if (staticLocation) {
-              //   // Place Order
-              // } else {
-              //   // Set selected position as static location
-              //   // Redirect to same page with static location
-              // }
               if (!staticLocation) {
                 props.handleNext();
               } else {

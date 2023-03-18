@@ -25,14 +25,16 @@ function LocationInput({ staticLocation, handleNext }) {
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
+        margin: "auto",
         width: "100vw",
-        height: "90vh",
+        height: "75vh",
       }}
     >
       <Box
         sx={{
           width: { xs: "100vw", md: "50vw" },
-          height: { xs: "60vh", md: "100vh" },
+          height: { xs: "60vh", md: "75vh" },
+          flexShrink: 0,
         }}
       >
         <MapInput
@@ -41,7 +43,11 @@ function LocationInput({ staticLocation, handleNext }) {
           staticLocation={staticLocation}
         />
       </Box>
-      <Box sx={{ width: { xs: "100vw", md: "50vw" } }}>
+      <Box
+        sx={{
+          width: { xs: "100vw", md: "50vw" },
+        }}
+      >
         <MapSearchBox
           selectPosition={selectPosition}
           setSelectPosition={setSelectPosition}
