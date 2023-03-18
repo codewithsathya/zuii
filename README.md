@@ -13,23 +13,24 @@ This document serves as a guide for setting up and running the Drone Delivery Ap
 2. Navigate to the client directory and run `npm install --legacy-peer-deps` to install all the required dependencies.
 3. Navigate to the server directory and run `npm install` to install all the required dependencies.
 
-Create a `.env` file in the server directory with the following format:
+Create a `.env` file in the server directory which should contain your environment variables mentioned in `.env.example`
 
-```
-
-PROJECT_NAME=zuii
-PORT=3000
-MONGO_URL=mongodb+srv://gc_webathon:MQDv53D4jU8QjoFF@cluster0.cxfh7.mongodb.net/zuii?retryWrites=true&w=majority
-JWT_SECRET_KEY=kksekalskkdlkalkreskrkk
-NODE_ENV=development
-DEVELOPMENT_API_URL=http://localhost:3001
-
-```
+## Instructions
 
 1. Before starting the app, make sure that there is no other processes are running on port 3000 and 3001.
 2. Run `npm start` in the server directory to start the server on port 3000.
 3. Run `npm start` in the client directory to start the React app on port 3001.
 4. Navigate to `http://localhost:3001` in your browser to view the app.
+
+<aside>
+💡 Note: To become an admin, the user's email should be added to the `adminMails` array in the `config/index.js` located in the server directory. Additionally, the `isAdmin` property of the user should be updated to `true` in the MongoDB database.
+
+</aside>
+
+<aside>
+💡 Note: If you wish to replace the current Google OAuth client id with your own, edit the `index.js` file in the `src` subdirectory of the client directory.
+
+</aside>
 
 ## Project Structure
 
