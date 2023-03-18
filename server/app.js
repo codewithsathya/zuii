@@ -65,7 +65,7 @@ const postMongoConnection = () => {
     io = require("socket.io")(server, {
         pingTimeout: 60000,
         cors: {
-            origin: process.env.NODE_ENV === 'production' ? "https://zuii.codewithsathya.com": "http://localhost:3001"
+            origin: process.env.NODE_ENV === 'production' ? process.env.PROD_API_URL: process.env.DEVELOPMENT_API_URL
         }
     })
 
