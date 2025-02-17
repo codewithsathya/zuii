@@ -1,0 +1,7 @@
+
+services:
+  react-app:
+    build: .
+    ports:
+      - "3334:80"
+    restart: always

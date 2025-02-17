@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  zuii-backend:
+    build: .
+    ports:
+      - "3335:3000"
+    restart: always
+
