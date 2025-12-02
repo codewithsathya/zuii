@@ -1,7 +1,6 @@
-version: '3'
-
 services:
   zuii-backend:
+    container_name: zuii-backend
     build: .
     ports:
       - "3335:3000"
