@@ -1,6 +1,7 @@
 
 services:
-  react-app:
+  zuii-frontend:
+    container_name: zuii-frontend
     build: .
     ports:
       - "3334:80"
